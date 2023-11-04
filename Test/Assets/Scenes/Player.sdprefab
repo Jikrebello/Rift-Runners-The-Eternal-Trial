@@ -1,0 +1,67 @@
+!PrefabAsset
+Id: c5238381-e102-443f-ad96-e07ac5eaa335
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+Hierarchy:
+    RootParts:
+        - ref!! b38b2d3b-282a-4727-9a86-8fdc249e4f60
+    Parts:
+        -   Entity:
+                Id: 2f197423-ecc3-4022-a6ee-21d0c66df015
+                Name: Model
+                Components:
+                    799db5d3be150c2e14871abeb587bc2a: !TransformComponent
+                        Id: 3dfb9eac-07c7-4f16-aa16-ea97a73f35b8
+                        Position: {X: -1.1920929E-07, Y: 0.4822161, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.7, Y: 0.81, Z: 0.7}
+                        Children: {}
+                    5254301708a057f6dadd8c07d1ca2b60: !ModelComponent
+                        Id: a8074bf2-2272-476c-aee8-a5f44f9f21af
+                        Model: e4a9e716-bbb7-44b4-93b3-63a2316e14c2:Scenes/Capsule
+                        Materials: {}
+        -   Entity:
+                Id: 61c0a764-a130-46a5-af21-d2ec66297f8c
+                Name: Camera
+                Components:
+                    27911c76c2d3b4868942e6b967c05123: !TransformComponent
+                        Id: d57cbca3-83af-4762-bec1-cbe360f7aa72
+                        Position: {X: 0.0, Y: 1.1477642, Z: 2.5}
+                        Rotation: {X: -0.052265577, Y: 0.0, Z: 0.0, W: 0.9986332}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    28aab1e69edff177d7bb72cbc1b97cb1: !CameraComponent
+                        Id: 17e8501e-fd68-4453-ac82-661090d162d6
+                        Name: null
+                        Projection: Perspective
+                        Slot: 702a0cb9-2057-4b32-a5e6-ba60f5e887e5
+        -   Entity:
+                Id: b38b2d3b-282a-4727-9a86-8fdc249e4f60
+                Name: Player
+                Components:
+                    22f83ea01153c208c93b918d5ee8a16a: !TransformComponent
+                        Id: 8ec6c4df-fd10-493d-b10a-debf724a45a9
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            e0432f1e6fb5c02150ff99f4a641bd64: ref!! d57cbca3-83af-4762-bec1-cbe360f7aa72
+                            1ee67763dc8f079168a1e88a1c73c944: ref!! 3dfb9eac-07c7-4f16-aa16-ea97a73f35b8
+                    a4285ee58b5428b8b25af21cc95bef67: !CharacterComponent
+                        Id: c2f671ff-a2a2-42b9-adf7-fed0c6b44dc4
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        FallSpeed: 10.0
+                        MaxSlope: {Radians: 0.7853982}
+                        JumpSpeed: 5.0
+                        Gravity: {X: 0.0, Y: -10.0, Z: 0.0}
+                        ColliderShapes:
+                            4bce09d191372aaeff4b45ad43363342: !CapsuleColliderShapeDesc
+                                LocalOffset: {X: 0.0, Y: 0.5, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                    3589ae35ec0c0860742475c19aebe41c: !Test.PlayerController.StateMachine.PlayerController,Test
+                        Id: ead78e97-2355-4dbd-b67d-e8160d518c2b
