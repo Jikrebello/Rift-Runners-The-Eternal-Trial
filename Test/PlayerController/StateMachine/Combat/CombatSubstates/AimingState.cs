@@ -10,10 +10,21 @@ namespace Test.PlayerController.StateMachine.Combat
             // Logic here
         }
 
+        public override void HandleInput()
+        {
+            // Logic here
+            if (!Context.Input.IsMouseButtonDown(Stride.Input.MouseButton.Right))
+            {
+                Context.OnAimEventKeyHandler(false);
+                Context.CombatStateMachine.TransitionTo(new CombatState());
+            }
+        }
+
         public override void Update()
         {
-            base.Update(); // Logic here
-            Context.ScriptComponent.DebugText.Print("In Aiming state", new Int2(450, 450));
+            // Logic here
+            //base.Update();
+            Context.ScriptComponent.DebugText.Print("In Aiming state", new Int2(550, 450));
         }
 
         public override void Exit()

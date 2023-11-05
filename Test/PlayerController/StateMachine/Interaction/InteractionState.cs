@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Stride.Core.Mathematics;
 using Stride.Engine;
+using Stride.Input;
 
 namespace Test.PlayerController.StateMachine.Interaction
 {
@@ -9,6 +10,11 @@ namespace Test.PlayerController.StateMachine.Interaction
         public PlayerContext Context { get; set; }
 
         public virtual void Enter(Dictionary<string, object> parameters)
+        {
+            // Logic here
+        }
+
+        public virtual void HandleInput()
         {
             // Logic here
         }

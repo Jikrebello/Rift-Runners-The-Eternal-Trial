@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
-using Stride.Engine;
-using Stride.Physics;
 
 namespace Test.PlayerController.StateMachine
 {
     public class StateMachine
     {
         private IState _currentState;
-        private PlayerContext _playerContext;
+        private readonly PlayerContext _playerContext;
 
         public StateMachine(PlayerContext playerContext)
         {
             _playerContext = playerContext;
+        }
+
+        public void HandleInput()
+        {
+            _currentState?.HandleInput();
         }
 
         public void Update()

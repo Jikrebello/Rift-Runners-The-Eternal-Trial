@@ -1,10 +1,7 @@
-﻿using Stride.Core.Mathematics;
+﻿using Stride.Core.Diagnostics;
 using Stride.Engine;
 using Stride.Physics;
-using Test.PlayerController.StateMachine.Airborne;
-using Test.PlayerController.StateMachine.Aquatic;
 using Test.PlayerController.StateMachine.Combat;
-using Test.PlayerController.StateMachine.Interaction;
 using Test.PlayerController.StateMachine.Locomotion;
 
 namespace Test.PlayerController.StateMachine
@@ -19,19 +16,28 @@ namespace Test.PlayerController.StateMachine
         {
             _playerContext = new PlayerContext
             {
-                CharacterComponent = Entity.Get<CharacterComponent>(),
-                ScriptComponent = this
+                ScriptComponent = this,
+                Log = Log,
+                Character = Entity.Get<CharacterComponent>(),
+                Input = Input
             };
 
+            _playerContext.Log.ActivateLog(LogMessageType.Info);
+
             _combatStateMachine = new StateMachine(_playerContext);
+            _playerContext.CombatStateMachine = _combatStateMachine;
             _combatStateMachine.TransitionTo(new CombatState());
 
             _locomotionStateMachine = new StateMachine(_playerContext);
+            _playerContext.LocomotionStateMachine = _locomotionStateMachine;
             _locomotionStateMachine.TransitionTo(new IdleState());
         }
 
         public override void Update()
         {
+            _combatStateMachine?.HandleInput();
+            _locomotionStateMachine?.HandleInput();
+
             _combatStateMachine.Update();
             _locomotionStateMachine.Update();
         }

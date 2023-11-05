@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using Stride.Core.Mathematics;
-using Stride.Engine;
-using Stride.Physics;
 
 namespace Test.PlayerController.StateMachine.Airborne
 {
@@ -10,6 +8,11 @@ namespace Test.PlayerController.StateMachine.Airborne
         public PlayerContext Context { get; set; }
 
         public virtual void Enter(Dictionary<string, object> parameters)
+        {
+            // Logic here
+        }
+
+        public virtual void HandleInput()
         {
             // Logic here
         }

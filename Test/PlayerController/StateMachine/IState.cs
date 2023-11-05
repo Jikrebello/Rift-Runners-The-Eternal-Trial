@@ -1,5 +1,4 @@
-﻿using Stride.Engine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Test.PlayerController.StateMachine
 {
@@ -7,6 +6,7 @@ namespace Test.PlayerController.StateMachine
     {
         PlayerContext Context { get; set; }
         void Enter(Dictionary<string, object> parameters);
+        void HandleInput();
         void Update();
         void Exit();
     }
