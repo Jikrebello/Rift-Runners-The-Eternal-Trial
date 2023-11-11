@@ -26,8 +26,8 @@ Hierarchy:
                 Components:
                     27911c76c2d3b4868942e6b967c05123: !TransformComponent
                         Id: d57cbca3-83af-4762-bec1-cbe360f7aa72
-                        Position: {X: 0.0, Y: 1.1477642, Z: 2.5}
-                        Rotation: {X: -0.052265577, Y: 0.0, Z: 0.0, W: 0.9986332}
+                        Position: {X: 0.0, Y: 1.1477642, Z: -2.5}
+                        Rotation: {X: 2.284601E-09, Y: 0.9986332, Z: 0.052265577, W: -4.3651642E-08}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     28aab1e69edff177d7bb72cbc1b97cb1: !CameraComponent
@@ -45,8 +45,8 @@ Hierarchy:
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:
+                            4c4876411568e848404ba4032ac49274: ref!! 3dfb9eac-07c7-4f16-aa16-ea97a73f35b8
                             e0432f1e6fb5c02150ff99f4a641bd64: ref!! d57cbca3-83af-4762-bec1-cbe360f7aa72
-                            1ee67763dc8f079168a1e88a1c73c944: ref!! 3dfb9eac-07c7-4f16-aa16-ea97a73f35b8
                     a4285ee58b5428b8b25af21cc95bef67: !CharacterComponent
                         Id: c2f671ff-a2a2-42b9-adf7-fed0c6b44dc4
                         CanSleep: false
