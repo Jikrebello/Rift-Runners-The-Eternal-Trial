@@ -15,6 +15,8 @@ namespace Test
         public CharacterComponent Character { get; set; }
         public InputManager Input { get; set; }
 
+        public Entity Model { get; set; }
+
         // State Machines
         public StateMachine CombatStateMachine { get; set; }
         public StateMachine LocomotionStateMachine { get; set; }

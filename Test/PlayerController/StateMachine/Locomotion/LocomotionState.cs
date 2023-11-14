@@ -12,6 +12,8 @@ namespace Test.PlayerController.StateMachine.Locomotion
         protected bool isAiming;
         protected Vector3 inputDirection;
         protected Vector3 moveDirection;
+
+        //protected float lastYawOrientation = 0;
         protected float maxSpeed = 2;
         public PlayerContext Context { get; set; }
 
@@ -33,16 +35,22 @@ namespace Test.PlayerController.StateMachine.Locomotion
         public virtual void Update()
         {
             // Logic here
-            Context.ScriptComponent.DebugText.Print(
-                $"Input Direction: {GetInputDirection()}",
-                new Int2(250, 250)
-            );
 
             inputDirection = GetInputDirection();
 
             moveDirection = inputDirection * maxSpeed;
 
             Context.Character.SetVelocity(moveDirection);
+
+            if (moveDirection.Length() > float.Epsilon)
+            {
+                Context.ScriptComponent.DebugText.Print(
+                    $"Move Direction: {moveDirection}",
+                    new Int2(250, 250)
+                );
+
+                Context.Model.Transform.Rotation = LookAt(moveDirection);
+            }
         }
 
         public virtual void Exit()
@@ -68,14 +76,9 @@ namespace Test.PlayerController.StateMachine.Locomotion
 
         private Quaternion LookAt(Vector3 moveDirection)
         {
-            float yawOrientation = 0;
-
-            if (moveDirection.Length() > 0.001)
-            {
-                yawOrientation = MathUtil.RadiansToDegrees(
-                    (float)Math.Atan2(-moveDirection.Z, moveDirection.X) + MathUtil.PiOverTwo
-                );
-            }
+            float yawOrientation = MathUtil.RadiansToDegrees(
+                (float)Math.Atan2(-moveDirection.Z, moveDirection.X) + MathUtil.PiOverTwo
+            );
 
             return Quaternion.RotationYawPitchRoll(MathUtil.DegreesToRadians(yawOrientation), 0, 0);
         }

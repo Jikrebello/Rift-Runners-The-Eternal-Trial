@@ -19,7 +19,8 @@ namespace Test.PlayerController.StateMachine
                 ScriptComponent = this,
                 Log = Log,
                 Character = Entity.Get<CharacterComponent>(),
-                Input = Input
+                Input = Input,
+                Model = Entity.GetChild(0)
             };
 
             _playerContext.Log.ActivateLog(LogMessageType.Info);
