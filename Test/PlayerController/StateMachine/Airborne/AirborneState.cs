@@ -21,6 +21,11 @@ namespace Test.PlayerController.StateMachine.Airborne
         {
             // Logic here
             Context.ScriptComponent.DebugText.Print("In Airborne state", new Int2(350, 350));
+
+            //if(!Context.Character.IsGrounded)
+            //{
+
+            //}
         }
 
         public virtual void Exit()

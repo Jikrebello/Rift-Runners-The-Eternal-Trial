@@ -17,6 +17,8 @@ namespace Test.PlayerController.StateMachine
             _playerContext = new PlayerContext
             {
                 ScriptComponent = this,
+                Game = Game,
+                DebugText = DebugText,
                 Log = Log,
                 Character = Entity.Get<CharacterComponent>(),
                 Input = Input,

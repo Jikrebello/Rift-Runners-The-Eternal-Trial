@@ -47,7 +47,7 @@ Hierarchy:
                         Type: !LightDirectional
                             Color: !ColorRgbProvider
                                 Value: {R: 1.0, G: 1.0, B: 1.0}
-                            Shadow:
+                            Shadow: !LightDirectionalShadowMap
                                 Enabled: true
                                 Filter: !LightShadowMapFilterTypePcf
                                     FilterSize: Filter5x5
@@ -108,9 +108,9 @@ Hierarchy:
                 Components:
                     5ad67bee6e9b35d067c62f6b6849401a: !TransformComponent
                         Id: ecab1e35-8a2f-41da-a586-6d2ffd3f7bdc
-                        Position: {X: 0.0, Y: -0.02360481, Z: 0.037117153}
+                        Position: {X: 0.0, Y: 0.30191445, Z: 0.30885968}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 0.2963679, Y: 0.35488164, Z: 2.0400515}
+                        Scale: {X: 0.46598184, Y: 0.16668881, Z: 0.24316777}
                         Children: {}
                     c8e31f22b0af02614a62db8a6d991791: !ModelComponent
                         Id: ef12de9c-0a9a-4c17-aac6-1ce14907822b

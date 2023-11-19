@@ -1,8 +1,10 @@
 ﻿using Stride.Core.Diagnostics;
 using Stride.Engine;
 using Stride.Engine.Events;
+using Stride.Games;
 using Stride.Input;
 using Stride.Physics;
+using Stride.Profiling;
 using Test.PlayerController.StateMachine;
 
 namespace Test
@@ -11,6 +13,10 @@ namespace Test
     {
         // Stride Specific
         public ScriptComponent ScriptComponent { get; set; }
+        public IGame Game { get; set; }
+
+        public DebugTextSystem DebugText { get; set; }
+
         public Logger Log { get; set; }
         public CharacterComponent Character { get; set; }
         public InputManager Input { get; set; }

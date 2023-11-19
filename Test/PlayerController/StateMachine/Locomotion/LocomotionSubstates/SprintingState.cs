@@ -8,6 +8,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
         public override void Enter(Dictionary<string, object> parameters)
         {
             // Logic here
+            base.Enter(parameters);
         }
 
         public override void Update()

@@ -8,18 +8,18 @@ namespace Test.PlayerController.StateMachine.Locomotion
 {
     public class LocomotionState : IState
     {
+        public PlayerContext Context { get; set; }
+
         protected EventReceiver<bool> aimingReceiver;
         protected bool isAiming;
         protected Vector3 inputDirection;
         protected Vector3 moveDirection;
-
-        //protected float lastYawOrientation = 0;
-        protected float maxSpeed = 2;
-        public PlayerContext Context { get; set; }
+        protected float maxSpeed = 4;
+        protected Quaternion previousRotation = Quaternion.Identity;
+        protected float rotationSpeed = 10;
 
         public virtual void Enter(Dictionary<string, object> parameters)
         {
-            // Logic here
             aimingReceiver = new EventReceiver<bool>(Context.AimingEventKey);
             if (parameters != null)
             {
@@ -27,29 +27,20 @@ namespace Test.PlayerController.StateMachine.Locomotion
             }
         }
 
-        public virtual void HandleInput()
-        {
-            // Logic here
-        }
+        public virtual void HandleInput() { }
 
         public virtual void Update()
         {
-            // Logic here
-
             inputDirection = GetInputDirection();
-
             moveDirection = inputDirection * maxSpeed;
 
             Context.Character.SetVelocity(moveDirection);
 
             if (moveDirection.Length() > float.Epsilon)
             {
-                Context.ScriptComponent.DebugText.Print(
-                    $"Move Direction: {moveDirection}",
-                    new Int2(250, 250)
-                );
+                Context.DebugText.Print($"Move Direction: {moveDirection}", new Int2(250, 250));
 
-                Context.Model.Transform.Rotation = LookAt(moveDirection);
+                Context.Model.Transform.Rotation = LookAt(moveDirection, rotationSpeed);
             }
         }
 
@@ -74,13 +65,34 @@ namespace Test.PlayerController.StateMachine.Locomotion
             return inputDirection;
         }
 
-        private Quaternion LookAt(Vector3 moveDirection)
+        private Quaternion LookAt(Vector3 moveDirection, float interpolationSpeed)
         {
+            if (moveDirection.LengthSquared() < float.Epsilon)
+                return previousRotation;
+
             float yawOrientation = MathUtil.RadiansToDegrees(
                 (float)Math.Atan2(-moveDirection.Z, moveDirection.X) + MathUtil.PiOverTwo
             );
 
-            return Quaternion.RotationYawPitchRoll(MathUtil.DegreesToRadians(yawOrientation), 0, 0);
+            Quaternion targetRotation = Quaternion.RotationYawPitchRoll(
+                MathUtil.DegreesToRadians(yawOrientation),
+                0,
+                0
+            );
+
+            float slerpFactor = Math.Min(
+                interpolationSpeed * (float)Context.Game.UpdateTime.Elapsed.TotalSeconds,
+                1.0f
+            );
+            Quaternion interpolatedRotation = Quaternion.Slerp(
+                previousRotation,
+                targetRotation,
+                slerpFactor
+            );
+
+            previousRotation = interpolatedRotation;
+
+            return interpolatedRotation;
         }
     }
 }
