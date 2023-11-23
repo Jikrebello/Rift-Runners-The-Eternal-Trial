@@ -14,6 +14,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
         public override void HandleInput()
         {
             // Logic here
+            base.HandleInput();
         }
 
         public override void Update()
@@ -26,7 +27,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
                 isAiming = aiming;
             }
 
-            if (inputDirection.LengthSquared() > 0f)
+            if (moveDirection.LengthSquared() > 0f)
             {
                 Context.LocomotionStateMachine.TransitionTo(
                     new RunningState(),

@@ -36,6 +36,27 @@ Hierarchy:
                         Model: e4a9e716-bbb7-44b4-93b3-63a2316e14c2:Scenes/Capsule
                         Materials: {}
         -   Entity:
+                Id: 52655426-ed6a-40df-b017-b68a2e26f418
+                Name: Camera
+                Components:
+                    f9fb1b3e263b4cbd52e2f89a75c79371: !TransformComponent
+                        Id: 116d66e8-530f-406c-a6ed-5f927e8b18f3
+                        Position: {X: 0.0, Y: 1.0, Z: -5.0}
+                        Rotation: {X: 0.0, Y: -1.0, Z: -0.0, W: -4.371139E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    1d42cf94fd7586a3713d8e76da5f3afc: !CameraComponent
+                        Id: 2676cfee-da73-40e2-b3c5-126fc8aa89e3
+                        Name: null
+                        Projection: Perspective
+                        Slot: 702a0cb9-2057-4b32-a5e6-ba60f5e887e5
+                    af423494f706c5ab4ea953441b763abc: !Test.PlayerController.ThirdPersonCamera,Test
+                        Id: 5fe0abb7-3d02-4426-b1a4-4980e5574bb4
+                        MinVerticalAngle: -20.0
+                        MaxVerticalAngle: 70.0
+                        RotationSpeed: 360.0
+                        VerticalSpeed: 65.0
+        -   Entity:
                 Id: b38b2d3b-282a-4727-9a86-8fdc249e4f60
                 Name: Player
                 Components:
@@ -46,6 +67,7 @@ Hierarchy:
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:
                             4c4876411568e848404ba4032ac49274: ref!! 3dfb9eac-07c7-4f16-aa16-ea97a73f35b8
+                            4d39e95a3fd485cc863f24891318c404: ref!! 01225bda-4eab-4774-85ea-3268ffa627c2
                     a4285ee58b5428b8b25af21cc95bef67: !CharacterComponent
                         Id: c2f671ff-a2a2-42b9-adf7-fed0c6b44dc4
                         CanSleep: false
@@ -64,3 +86,18 @@ Hierarchy:
                                 LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                     3589ae35ec0c0860742475c19aebe41c: !Test.PlayerController.StateMachine.PlayerController,Test
                         Id: ead78e97-2355-4dbd-b67d-e8160d518c2b
+                    4a164fe4ecd337d7d5db7efd978c236c: !Test.PlayerController.PlayerInput,Test
+                        Id: 968f9a54-21c3-4588-ba26-8a6bfd0045fc
+                        Camera: ref!! 2676cfee-da73-40e2-b3c5-126fc8aa89e3
+                        MouseSensitivity: 1.0
+        -   Entity:
+                Id: f5dab1e1-b3bd-4118-b771-e55a108f4a1d
+                Name: CameraTarget
+                Components:
+                    906ed89574d712b6ec796875d43531a0: !TransformComponent
+                        Id: 01225bda-4eab-4774-85ea-3268ffa627c2
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            758cc60e9e6a7a823387e999bdc4a4e6: ref!! 116d66e8-530f-406c-a6ed-5f927e8b18f3

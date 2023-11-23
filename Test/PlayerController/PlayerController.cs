@@ -21,6 +21,7 @@ namespace Test.PlayerController.StateMachine
                 DebugText = DebugText,
                 Log = Log,
                 Character = Entity.Get<CharacterComponent>(),
+                PlayerInput = Entity.Get<PlayerInput>(),
                 Input = Input,
                 Model = Entity.GetChild(0)
             };
@@ -38,11 +39,11 @@ namespace Test.PlayerController.StateMachine
 
         public override void Update()
         {
-            _combatStateMachine?.HandleInput();
-            _locomotionStateMachine?.HandleInput();
-
-            _combatStateMachine.Update();
+            _locomotionStateMachine.HandleInput();
             _locomotionStateMachine.Update();
+
+            _combatStateMachine.HandleInput();
+            _combatStateMachine.Update();
         }
     }
 }

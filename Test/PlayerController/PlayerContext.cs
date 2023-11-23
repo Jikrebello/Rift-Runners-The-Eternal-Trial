@@ -5,6 +5,7 @@ using Stride.Games;
 using Stride.Input;
 using Stride.Physics;
 using Stride.Profiling;
+using Test.PlayerController;
 using Test.PlayerController.StateMachine;
 
 namespace Test
@@ -22,6 +23,8 @@ namespace Test
         public InputManager Input { get; set; }
 
         public Entity Model { get; set; }
+
+        public PlayerInput PlayerInput { get; set; }
 
         // State Machines
         public StateMachine CombatStateMachine { get; set; }

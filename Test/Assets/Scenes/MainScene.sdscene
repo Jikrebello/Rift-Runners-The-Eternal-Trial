@@ -8,30 +8,10 @@ Hierarchy:
     RootParts:
         - ref!! 255ffa89-0602-477a-bef7-4bda7efb384c
         - ref!! 38d6927a-8670-44c7-be86-9fd6ce75d658
-        - ref!! 5fcb1b8a-7be4-4000-a2c1-c275d4ac2096
-        - ref!! 840f6426-6890-4f1c-a339-04193921ddc5
         - ref!! a792ae8c-656e-4480-ae07-8532226e03c9
-        - ref!! df74f77c-bb8f-48da-9c02-e1a6f5a55dd3
+        - ref!! 5fcb1b8a-7be4-4000-a2c1-c275d4ac2096
+        - ref!! 501fb4f4-8e29-4c99-a6b1-65f949cc6e44
     Parts:
-        -   Entity:
-                Id: 24847a84-89cb-418d-93b2-7eaeafe84d53
-                Name: Model
-                Components:
-                    799db5d3be150c2e14871abeb587bc2a: !TransformComponent
-                        Id: ad41b884-6caf-4c15-9762-329eab043fff
-                        Position: {X: -1.1920929E-07, Y: 0.4822161, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 0.7, Y: 0.81, Z: 0.7}
-                        Children:
-                            31ea73905ceb3f14ba3df6f7b0393882: ref!! ecab1e35-8a2f-41da-a586-6d2ffd3f7bdc
-                    5254301708a057f6dadd8c07d1ca2b60: !ModelComponent
-                        Id: edca4cb5-ae54-4851-ae3a-e14b5eff7873
-                        Model: e4a9e716-bbb7-44b4-93b3-63a2316e14c2:Scenes/Capsule
-                        Materials: {}
-            Base:
-                BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Scenes/Player
-                BasePartId: 2f197423-ecc3-4022-a6ee-21d0c66df015
-                InstanceId: bf149048-ab07-4f1f-8531-bf3e26d8b100
         -   Entity:
                 Id: 255ffa89-0602-477a-bef7-4bda7efb384c
                 Name: Directional light
@@ -75,6 +55,17 @@ Hierarchy:
                         Type: !LightSkybox
                             Skybox: 56cf27ab-db3a-4073-b6a6-ba247e0190e2:Skybox
         -   Entity:
+                Id: 501fb4f4-8e29-4c99-a6b1-65f949cc6e44
+                Name: Player
+                Components:
+                    6214d556d16ddb33d283b2e97080196a: !TransformComponent
+                        Id: 1af6ec3a-c810-4cd9-9c1d-1b6284d4a993
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            787a72a18e5b3881d1eabf60516ec304: ref!! 0754ee65-6ebc-497d-9c29-f8925635c270
+        -   Entity:
                 Id: 5fcb1b8a-7be4-4000-a2c1-c275d4ac2096
                 Name: Ground
                 Components:
@@ -103,36 +94,63 @@ Hierarchy:
                                 Normal: {X: 0.0, Y: 1.0, Z: 0.0}
                                 Offset: 0.0
         -   Entity:
-                Id: 82bb343d-cce5-4839-9a84-82e51f736b8a
-                Name: Cube
+                Id: 5fdf4cde-1f61-4a95-b925-dd1f6280b3a8
+                Name: Model
                 Components:
-                    5ad67bee6e9b35d067c62f6b6849401a: !TransformComponent
-                        Id: ecab1e35-8a2f-41da-a586-6d2ffd3f7bdc
-                        Position: {X: 0.0, Y: 0.30191445, Z: 0.30885968}
+                    799db5d3be150c2e14871abeb587bc2a: !TransformComponent
+                        Id: 4814628b-5ae7-4040-b351-c85e8a1e012b
+                        Position: {X: -1.1920929E-07, Y: 0.4822161, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 0.46598184, Y: 0.16668881, Z: 0.24316777}
-                        Children: {}
-                    c8e31f22b0af02614a62db8a6d991791: !ModelComponent
-                        Id: ef12de9c-0a9a-4c17-aac6-1ce14907822b
-                        Model: faa01111-fdf1-4bb1-93e4-9b2d9349fcc2:Scenes/Cube
+                        Scale: {X: 0.7, Y: 0.81, Z: 0.7}
+                        Children:
+                            90f365ffe52794dd02b504b3b979c21a: ref!! be6b4586-1ef5-4d28-adb6-a3667e3a44ba
+                    5254301708a057f6dadd8c07d1ca2b60: !ModelComponent
+                        Id: 08b1c7a0-1453-4d2b-9b46-fa89c4c552d8
+                        Model: e4a9e716-bbb7-44b4-93b3-63a2316e14c2:Scenes/Capsule
                         Materials: {}
             Base:
                 BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Scenes/Player
-                BasePartId: 1b322824-5d01-4d03-adca-ef4c6d80cc37
-                InstanceId: bf149048-ab07-4f1f-8531-bf3e26d8b100
+                BasePartId: 2f197423-ecc3-4022-a6ee-21d0c66df015
+                InstanceId: b5fc1f94-338c-421c-a70d-2b98a6bc2a22
         -   Entity:
-                Id: 840f6426-6890-4f1c-a339-04193921ddc5
+                Id: 635bc7f8-db94-4fd9-947f-eb683d98bb9b
+                Name: Camera
+                Components:
+                    f9fb1b3e263b4cbd52e2f89a75c79371: !TransformComponent
+                        Id: 8c9512e9-71ac-4078-bc3f-4db845b4774d
+                        Position: {X: 0.0, Y: 1.0, Z: -5.0}
+                        Rotation: {X: 0.0, Y: -1.0, Z: -0.0, W: -4.371139E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    1d42cf94fd7586a3713d8e76da5f3afc: !CameraComponent
+                        Id: f7cf681c-8f20-4548-b23c-e619248560d6
+                        Name: null
+                        Projection: Perspective
+                        Slot*: 702a0cb9-2057-4b32-a5e6-ba60f5e887e5
+                    af423494f706c5ab4ea953441b763abc: !Test.PlayerController.ThirdPersonCamera,Test
+                        Id: 0e6ddfc7-4eac-4794-8e69-a31180524ce1
+                        MinVerticalAngle: -20.0
+                        MaxVerticalAngle: 70.0
+                        RotationSpeed: 360.0
+                        VerticalSpeed: 65.0
+            Base:
+                BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Scenes/Player
+                BasePartId: 52655426-ed6a-40df-b017-b68a2e26f418
+                InstanceId: b5fc1f94-338c-421c-a70d-2b98a6bc2a22
+        -   Entity:
+                Id: 7bae42c6-1077-4436-83aa-156ab10efc46
                 Name: Player
                 Components:
                     22f83ea01153c208c93b918d5ee8a16a: !TransformComponent
-                        Id: 2db0b0ff-823d-4a7b-a20b-1f5fa57f9730
+                        Id: 0754ee65-6ebc-497d-9c29-f8925635c270
                         Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                        Rotation*: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:
-                            aacef51a6d56c4b06b5501e898a77b5d: ref!! ad41b884-6caf-4c15-9762-329eab043fff
+                            4c4876411568e848404ba4032ac49274: ref!! 4814628b-5ae7-4040-b351-c85e8a1e012b
+                            4d39e95a3fd485cc863f24891318c404: ref!! d4a95a0c-4ab3-48dd-97c3-1d787b00f4c6
                     a4285ee58b5428b8b25af21cc95bef67: !CharacterComponent
-                        Id: 079c3e9d-3b5a-48e5-8d79-097de048659c
+                        Id: 7721779b-bee1-4de7-8523-bd11f01a39af
                         CanSleep: false
                         Restitution: 0.0
                         Friction: 0.5
@@ -148,11 +166,30 @@ Hierarchy:
                                 LocalOffset: {X: 0.0, Y: 0.5, Z: 0.0}
                                 LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                     3589ae35ec0c0860742475c19aebe41c: !Test.PlayerController.StateMachine.PlayerController,Test
-                        Id: 5c417487-4082-48b5-98b6-ac43fdf012b9
+                        Id: 7a59e5da-ba22-420c-bbf4-fe0d1891f137
+                    4a164fe4ecd337d7d5db7efd978c236c: !Test.PlayerController.PlayerInput,Test
+                        Id: a1f612d6-d0ed-42f9-941b-9248691555a8
+                        Camera: ref!! f7cf681c-8f20-4548-b23c-e619248560d6
+                        MouseSensitivity: 1.0
             Base:
                 BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Scenes/Player
                 BasePartId: b38b2d3b-282a-4727-9a86-8fdc249e4f60
-                InstanceId: bf149048-ab07-4f1f-8531-bf3e26d8b100
+                InstanceId: b5fc1f94-338c-421c-a70d-2b98a6bc2a22
+        -   Entity:
+                Id: a6eb64fb-5d01-4125-8288-390944cd6ab9
+                Name: CameraTarget
+                Components:
+                    906ed89574d712b6ec796875d43531a0: !TransformComponent
+                        Id: d4a95a0c-4ab3-48dd-97c3-1d787b00f4c6
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            758cc60e9e6a7a823387e999bdc4a4e6: ref!! 8c9512e9-71ac-4078-bc3f-4db845b4774d
+            Base:
+                BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Scenes/Player
+                BasePartId: f5dab1e1-b3bd-4118-b771-e55a108f4a1d
+                InstanceId: b5fc1f94-338c-421c-a70d-2b98a6bc2a22
         -   Entity:
                 Id: a792ae8c-656e-4480-ae07-8532226e03c9
                 Name: Cylinder
@@ -168,17 +205,20 @@ Hierarchy:
                         Model: ef7220c5-4d7a-4730-b853-d485dc198623:Scenes/Cylinder
                         Materials: {}
         -   Entity:
-                Id: df74f77c-bb8f-48da-9c02-e1a6f5a55dd3
-                Name: Camera
+                Id: af6cbb1d-fb12-4b5f-af0a-5b63685fa38e
+                Name: Cube
                 Components:
-                    adb47da2bd96d6e9f6d7b91e6ade2786: !TransformComponent
-                        Id: 35c5d9b5-9775-4593-ace6-5bc995ba3a19
-                        Position: {X: -1.270325E-06, Y: 4.910803, Z: -10.307259}
-                        Rotation: {X: 4.101718E-09, Y: 0.99558765, Z: 0.09383637, W: -4.351852E-08}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                    5ad67bee6e9b35d067c62f6b6849401a: !TransformComponent
+                        Id: be6b4586-1ef5-4d28-adb6-a3667e3a44ba
+                        Position: {X: 0.0, Y: 0.30191445, Z: 0.30885968}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.46598184, Y: 0.16668881, Z: 0.24316777}
                         Children: {}
-                    8792977e3f13805c5963b1e9ad333b9f: !CameraComponent
-                        Id: ee0ff4fb-2d80-4f9f-b8f0-836ec36edb1e
-                        Name: null
-                        Projection: Perspective
-                        Slot: 702a0cb9-2057-4b32-a5e6-ba60f5e887e5
+                    c8e31f22b0af02614a62db8a6d991791: !ModelComponent
+                        Id: bef3391f-f8db-4633-b3de-14a50b7a08b1
+                        Model: faa01111-fdf1-4bb1-93e4-9b2d9349fcc2:Scenes/Cube
+                        Materials: {}
+            Base:
+                BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Scenes/Player
+                BasePartId: 1b322824-5d01-4d03-adca-ef4c6d80cc37
+                InstanceId: b5fc1f94-338c-421c-a70d-2b98a6bc2a22
