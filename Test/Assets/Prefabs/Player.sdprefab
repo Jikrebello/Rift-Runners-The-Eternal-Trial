@@ -7,33 +7,18 @@ Hierarchy:
         - ref!! b38b2d3b-282a-4727-9a86-8fdc249e4f60
     Parts:
         -   Entity:
-                Id: 1b322824-5d01-4d03-adca-ef4c6d80cc37
-                Name: Cube
+                Id: 37081e29-7882-4240-afec-e5318d192cc9
+                Name: mannequinModel
                 Components:
-                    5ad67bee6e9b35d067c62f6b6849401a: !TransformComponent
-                        Id: 2230c53e-141b-421e-8eaa-dd990611e65d
-                        Position: {X: 0.0, Y: 0.30191445, Z: 0.30885968}
+                    f1a64b301b9540b41e23a3a4e8efb789: !TransformComponent
+                        Id: d477f363-2a1d-44cf-8721-cd116db20e64
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 0.46598184, Y: 0.16668881, Z: 0.24316777}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
-                    c8e31f22b0af02614a62db8a6d991791: !ModelComponent
-                        Id: b6d8543e-3eb7-4cdf-bc36-21abf455e1b2
-                        Model: faa01111-fdf1-4bb1-93e4-9b2d9349fcc2:Scenes/Cube
-                        Materials: {}
-        -   Entity:
-                Id: 2f197423-ecc3-4022-a6ee-21d0c66df015
-                Name: Model
-                Components:
-                    799db5d3be150c2e14871abeb587bc2a: !TransformComponent
-                        Id: 3dfb9eac-07c7-4f16-aa16-ea97a73f35b8
-                        Position: {X: -1.1920929E-07, Y: 0.4822161, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 0.7, Y: 0.81, Z: 0.7}
-                        Children:
-                            90f365ffe52794dd02b504b3b979c21a: ref!! 2230c53e-141b-421e-8eaa-dd990611e65d
-                    5254301708a057f6dadd8c07d1ca2b60: !ModelComponent
-                        Id: a8074bf2-2272-476c-aee8-a5f44f9f21af
-                        Model: e4a9e716-bbb7-44b4-93b3-63a2316e14c2:Scenes/Capsule
+                    0c4711d1c0f7d7655b952a38e69a7168: !ModelComponent
+                        Id: bdcdfbe5-3727-4863-b282-aad7f0206388
+                        Model: f68ea240-695a-4de5-9884-60d77544fcd6:Models/mannequinModel
                         Materials: {}
         -   Entity:
                 Id: 52655426-ed6a-40df-b017-b68a2e26f418
@@ -66,8 +51,8 @@ Hierarchy:
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:
-                            4c4876411568e848404ba4032ac49274: ref!! 3dfb9eac-07c7-4f16-aa16-ea97a73f35b8
-                            4d39e95a3fd485cc863f24891318c404: ref!! 01225bda-4eab-4774-85ea-3268ffa627c2
+                            13a67e66be0e7f25d6ebdbc6748e1af4: ref!! d477f363-2a1d-44cf-8721-cd116db20e64
+                            4c896a11a2b95b77fe5c4150ec8895a2: ref!! 01225bda-4eab-4774-85ea-3268ffa627c2
                     a4285ee58b5428b8b25af21cc95bef67: !CharacterComponent
                         Id: c2f671ff-a2a2-42b9-adf7-fed0c6b44dc4
                         CanSleep: false
