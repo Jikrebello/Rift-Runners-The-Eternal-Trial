@@ -26,7 +26,7 @@ Hierarchy:
                 Components:
                     f9fb1b3e263b4cbd52e2f89a75c79371: !TransformComponent
                         Id: 116d66e8-530f-406c-a6ed-5f927e8b18f3
-                        Position: {X: 0.0, Y: 1.0, Z: -5.0}
+                        Position: {X: 0.0, Y: 0.0, Z: -5.0}
                         Rotation: {X: 0.0, Y: -1.0, Z: -0.0, W: -4.371139E-08}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
@@ -37,8 +37,13 @@ Hierarchy:
                         Slot: 702a0cb9-2057-4b32-a5e6-ba60f5e887e5
                     af423494f706c5ab4ea953441b763abc: !Test.PlayerController.ThirdPersonCamera,Test
                         Id: 5fe0abb7-3d02-4426-b1a4-4980e5574bb4
+                        DefaultDistance: 6.0
+                        MinimumDistance: 0.4
+                        ConeRadius: 1.25
+                        InvertX: false
                         MinVerticalAngle: -20.0
                         MaxVerticalAngle: 70.0
+                        InvertY: false
                         RotationSpeed: 360.0
                         VerticalSpeed: 65.0
         -   Entity:
@@ -73,15 +78,19 @@ Hierarchy:
                         Id: ead78e97-2355-4dbd-b67d-e8160d518c2b
                     4a164fe4ecd337d7d5db7efd978c236c: !Test.PlayerController.PlayerInput,Test
                         Id: 968f9a54-21c3-4588-ba26-8a6bfd0045fc
-                        Camera: ref!! 2676cfee-da73-40e2-b3c5-126fc8aa89e3
                         MouseSensitivity: 1.0
+                        PlayerCamera: ref!! 2676cfee-da73-40e2-b3c5-126fc8aa89e3
+                        MoveLeftKeys: {}
+                        MoveRightKeys: {}
+                        MoveUpKeys: {}
+                        MoveDownKeys: {}
         -   Entity:
                 Id: f5dab1e1-b3bd-4118-b771-e55a108f4a1d
                 Name: CameraTarget
                 Components:
                     906ed89574d712b6ec796875d43531a0: !TransformComponent
                         Id: 01225bda-4eab-4774-85ea-3268ffa627c2
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Position: {X: 0.0, Y: 1.6597574, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:

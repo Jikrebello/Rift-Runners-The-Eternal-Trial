@@ -10,26 +10,8 @@ Hierarchy:
         - ref!! 38d6927a-8670-44c7-be86-9fd6ce75d658
         - ref!! a792ae8c-656e-4480-ae07-8532226e03c9
         - ref!! 5fcb1b8a-7be4-4000-a2c1-c275d4ac2096
-        - ref!! d580f85a-8128-4b3d-a5ab-875008be22ea
+        - ref!! 393f58e6-0c18-4f0c-88af-dc1d8baf0ec9
     Parts:
-        -   Entity:
-                Id: 1665b2cf-3e9b-4a0c-a43a-9625be1c4428
-                Name: mannequinModel
-                Components:
-                    f1a64b301b9540b41e23a3a4e8efb789: !TransformComponent
-                        Id: c0943a56-9df2-486a-a01b-fe23d86057ad
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    0c4711d1c0f7d7655b952a38e69a7168: !ModelComponent
-                        Id: bf82eed9-8378-4c5f-ac96-c9044ca164ab
-                        Model: f68ea240-695a-4de5-9884-60d77544fcd6:Models/mannequinModel
-                        Materials: {}
-            Base:
-                BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Prefabs/Player
-                BasePartId: 37081e29-7882-4240-afec-e5318d192cc9
-                InstanceId: 81161041-8c12-4756-8a81-8cbe3b9ab3ef
         -   Entity:
                 Id: 255ffa89-0602-477a-bef7-4bda7efb384c
                 Name: Directional light
@@ -73,6 +55,17 @@ Hierarchy:
                         Type: !LightSkybox
                             Skybox: 56cf27ab-db3a-4073-b6a6-ba247e0190e2:Skybox
         -   Entity:
+                Id: 393f58e6-0c18-4f0c-88af-dc1d8baf0ec9
+                Name: Player
+                Components:
+                    524878ed21bbd6a04d026d3687f33592: !TransformComponent
+                        Id: ef26482f-60b9-4b56-bd84-052e9174e11f
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            5a4a8a11ad27818a1aa33c5209b37330: ref!! ab2e191d-7a9d-41bc-8f59-fb4c76e226f8
+        -   Entity:
                 Id: 5fcb1b8a-7be4-4000-a2c1-c275d4ac2096
                 Name: Ground
                 Components:
@@ -101,69 +94,64 @@ Hierarchy:
                                 Normal: {X: 0.0, Y: 1.0, Z: 0.0}
                                 Offset: 0.0
         -   Entity:
-                Id: a792ae8c-656e-4480-ae07-8532226e03c9
-                Name: Cylinder
-                Components:
-                    9605970f96fe5cad8987e93b91efc88d: !TransformComponent
-                        Id: 755f4fbd-195d-4add-b75c-32574500af0b
-                        Position: {X: 0.1870684, Y: 0.8423833, Z: 3.8096986}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    ab8390b552dc79f0e7450a0415510624: !ModelComponent
-                        Id: bf94f489-6db2-4837-8ceb-d025e6aa7fd2
-                        Model: ef7220c5-4d7a-4730-b853-d485dc198623:Models/Cylinder
-                        Materials: {}
-        -   Entity:
-                Id: b6392f6e-7fb8-41d2-b89e-b6d70ecae4d5
+                Id: 65ddbfeb-6569-4d20-b5a7-49457bd272a2
                 Name: Camera
                 Components:
                     f9fb1b3e263b4cbd52e2f89a75c79371: !TransformComponent
-                        Id: c0d5de53-e35f-49a4-bde1-72974059748d
-                        Position: {X: 0.0, Y: 1.0, Z: -5.0}
-                        Rotation: {X: 0.0, Y: -1.0, Z: -0.0, W: -4.371139E-08}
+                        Id: b6483346-f1a5-4a8b-be79-2a0ef44c09ef
+                        Position*: {X: 0.0, Y: 0.0, Z: 5.0}
+                        Rotation*: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     1d42cf94fd7586a3713d8e76da5f3afc: !CameraComponent
-                        Id: de6c1615-14e6-4323-8fba-c300de8a7e89
+                        Id: 26d9936e-a9bd-4e88-9b32-49120e4972e2
                         Name: null
                         Projection: Perspective
                         Slot: 702a0cb9-2057-4b32-a5e6-ba60f5e887e5
                     af423494f706c5ab4ea953441b763abc: !Test.PlayerController.ThirdPersonCamera,Test
-                        Id: be8224cd-fa1f-4394-8771-f61805eca37d
+                        Id: 9877248e-05f7-41e3-b706-aa7db0f3f596
+                        DefaultDistance: 6.0
+                        MinimumDistance: 0.4
+                        ConeRadius: 1.25
+                        InvertX: false
                         MinVerticalAngle: -20.0
                         MaxVerticalAngle: 70.0
+                        InvertY: false
                         RotationSpeed: 360.0
                         VerticalSpeed: 65.0
             Base:
                 BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Prefabs/Player
                 BasePartId: 52655426-ed6a-40df-b017-b68a2e26f418
-                InstanceId: 81161041-8c12-4756-8a81-8cbe3b9ab3ef
+                InstanceId: 2e89ead9-60be-4e7b-82d8-0ac7156cf52f
         -   Entity:
-                Id: d580f85a-8128-4b3d-a5ab-875008be22ea
-                Name: Player
+                Id: 7d4beb0c-b030-49ce-aaec-c551d2eceb84
+                Name: CameraTarget
                 Components:
-                    ac2e3f85c86dd1b012467404914072c9: !TransformComponent
-                        Id: b76f58d5-b5e0-4c0c-87b2-32c57e3cda88
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                    906ed89574d712b6ec796875d43531a0: !TransformComponent
+                        Id: 4d547b6e-fba7-49c7-afd5-47d5cbe7345b
+                        Position: {X: 0.0, Y: 1.6597574, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:
-                            dcdd272ab54f2c8677b10d75dc41348b: ref!! 110ded32-1b8b-494b-85f5-04c0f970ad78
+                            758cc60e9e6a7a823387e999bdc4a4e6: ref!! b6483346-f1a5-4a8b-be79-2a0ef44c09ef
+            Base:
+                BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Prefabs/Player
+                BasePartId: f5dab1e1-b3bd-4118-b771-e55a108f4a1d
+                InstanceId: 2e89ead9-60be-4e7b-82d8-0ac7156cf52f
         -   Entity:
-                Id: e8caae76-027e-4950-a3c5-2b717dd1fb98
+                Id: 9065c1c3-31a1-4eb5-80b1-8e5bec06b0ed
                 Name: Player
                 Components:
                     22f83ea01153c208c93b918d5ee8a16a: !TransformComponent
-                        Id: 110ded32-1b8b-494b-85f5-04c0f970ad78
+                        Id: ab2e191d-7a9d-41bc-8f59-fb4c76e226f8
                         Position: {X: 0.0, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:
-                            13a67e66be0e7f25d6ebdbc6748e1af4: ref!! c0943a56-9df2-486a-a01b-fe23d86057ad
-                            c7aa758db0b03c76c958e92392319b12: ref!! 3ca5c277-2812-4269-83e8-2c3030ab63f4
+                            13a67e66be0e7f25d6ebdbc6748e1af4: ref!! 48bba02a-a96e-4a08-a2b9-cf77e9dd4c20
+                            4c896a11a2b95b77fe5c4150ec8895a2: ref!! 4d547b6e-fba7-49c7-afd5-47d5cbe7345b
                     a4285ee58b5428b8b25af21cc95bef67: !CharacterComponent
-                        Id: d9aead28-b8a1-4f0d-9894-bfebd8f0f029
+                        Id: d63458c0-be72-4b56-8e3a-bfb56e9de822
                         CanSleep: false
                         Restitution: 0.0
                         Friction: 0.5
@@ -179,27 +167,48 @@ Hierarchy:
                                 LocalOffset: {X: 0.0, Y: 0.5, Z: 0.0}
                                 LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                     3589ae35ec0c0860742475c19aebe41c: !Test.PlayerController.StateMachine.PlayerController,Test
-                        Id: a7103e31-a574-4092-bc26-3a095dbe2a43
+                        Id: cf45c612-215a-49f7-bf95-ee462ca1d92a
                     4a164fe4ecd337d7d5db7efd978c236c: !Test.PlayerController.PlayerInput,Test
-                        Id: 2ceec1d8-b69f-4e9f-9937-be98614e5cdd
-                        Camera: ref!! de6c1615-14e6-4323-8fba-c300de8a7e89
+                        Id: c53a88d7-84e2-4219-9b19-a50e300d8fd2
                         MouseSensitivity: 1.0
+                        PlayerCamera: ref!! 26d9936e-a9bd-4e88-9b32-49120e4972e2
+                        MoveLeftKeys: {}
+                        MoveRightKeys: {}
+                        MoveUpKeys: {}
+                        MoveDownKeys: {}
             Base:
                 BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Prefabs/Player
                 BasePartId: b38b2d3b-282a-4727-9a86-8fdc249e4f60
-                InstanceId: 81161041-8c12-4756-8a81-8cbe3b9ab3ef
+                InstanceId: 2e89ead9-60be-4e7b-82d8-0ac7156cf52f
         -   Entity:
-                Id: e90a2411-2edc-4e23-87ff-149bdcb9f9e8
-                Name: CameraTarget
+                Id: a792ae8c-656e-4480-ae07-8532226e03c9
+                Name: Cylinder
                 Components:
-                    906ed89574d712b6ec796875d43531a0: !TransformComponent
-                        Id: 3ca5c277-2812-4269-83e8-2c3030ab63f4
+                    9605970f96fe5cad8987e93b91efc88d: !TransformComponent
+                        Id: 755f4fbd-195d-4add-b75c-32574500af0b
+                        Position: {X: 0.1870684, Y: 0.8423833, Z: 3.8096986}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    ab8390b552dc79f0e7450a0415510624: !ModelComponent
+                        Id: bf94f489-6db2-4837-8ceb-d025e6aa7fd2
+                        Model: ef7220c5-4d7a-4730-b853-d485dc198623:Models/Cylinder
+                        Materials: {}
+        -   Entity:
+                Id: fd530780-a7b9-4b2d-8bbe-de3578f11925
+                Name: mannequinModel
+                Components:
+                    f1a64b301b9540b41e23a3a4e8efb789: !TransformComponent
+                        Id: 48bba02a-a96e-4a08-a2b9-cf77e9dd4c20
                         Position: {X: 0.0, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children:
-                            758cc60e9e6a7a823387e999bdc4a4e6: ref!! c0d5de53-e35f-49a4-bde1-72974059748d
+                        Children: {}
+                    0c4711d1c0f7d7655b952a38e69a7168: !ModelComponent
+                        Id: acfa4b1d-851e-47a1-9cb8-bf9593f2a1da
+                        Model: f68ea240-695a-4de5-9884-60d77544fcd6:Models/mannequinModel
+                        Materials: {}
             Base:
                 BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Prefabs/Player
-                BasePartId: f5dab1e1-b3bd-4118-b771-e55a108f4a1d
-                InstanceId: 81161041-8c12-4756-8a81-8cbe3b9ab3ef
+                BasePartId: 37081e29-7882-4240-afec-e5318d192cc9
+                InstanceId: 2e89ead9-60be-4e7b-82d8-0ac7156cf52f

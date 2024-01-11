@@ -1,73 +1,69 @@
-﻿using Stride.Core.Mathematics;
-using Stride.Input;
+﻿using Stride.Engine.Events;
 using Stride.Engine;
-using Stride.Engine.Events;
+using Stride.Input;
 using System.Collections.Generic;
+using Stride.Core.Mathematics;
+using System.Linq;
+
 
 namespace Test.PlayerController
 {
     public class PlayerInput : SyncScript
     {
-        public static readonly EventKey<Vector3> InputDirectionEventKey = new();
-        public static readonly EventKey<Vector2> CameraDirectionEventKey = new();
+        public static readonly EventKey<Vector3> MovementEventKey = new();
+        public static readonly EventKey<Vector2> CameraRotateEventKey = new();
 
-        public CameraComponent Camera { get; set; }
-        public float MouseSensitivity { get; set; } = 1f;
+        public CameraComponent PlayerCamera { get; set; }
+        public float MouseSensitivity = 1f;
 
-        private readonly Queue<Vector2> mouseDeltaHistory = new Queue<Vector2>();
+        public List<Keys> MoveLeftKeys { get; } = [];
+        public List<Keys> MoveRightKeys { get; } = [];
+        public List<Keys> MoveUpKeys { get; } = [];
+        public List<Keys> MoveDownKeys { get; } = [];
+
+        public override void Start()
+        {
+            base.Start();
+
+            // Assigning WASD keys to the respective lists
+            MoveLeftKeys.Add(Keys.A);
+            MoveRightKeys.Add(Keys.D);
+            MoveUpKeys.Add(Keys.W);
+            MoveDownKeys.Add(Keys.S);
+        }
 
         public override void Update()
         {
-            var inputDirection = GetInputDirection();
+            Vector2 movementInput = Vector2.Zero;
 
-            if (Camera != null)
-            {
-                inputDirection = ConvertInputToWorldDirection(
-                    inputDirection,
-                    Camera,
-                    Vector3.UnitY
-                );
-            }
-            InputDirectionEventKey.Broadcast(inputDirection);
+            // Handle keyboard inputs for movement
+            if (MoveLeftKeys.Any(key => Input.IsKeyDown(key)))
+                movementInput += -Vector2.UnitX;
+            if (MoveRightKeys.Any(key => Input.IsKeyDown(key)))
+                movementInput += Vector2.UnitX;
+            if (MoveUpKeys.Any(key => Input.IsKeyDown(key)))
+                movementInput += Vector2.UnitY;
+            if (MoveDownKeys.Any(key => Input.IsKeyDown(key)))
+                movementInput += -Vector2.UnitY;
 
-            var cameraDirection = GetCameraDirection();
-            CameraDirectionEventKey.Broadcast(cameraDirection);
-        }
+            // Convert movement input to world-space direction
+            Vector3 worldMovementDirection =
+                (PlayerCamera != null)
+                    ? LogicDirectionToWorldDirection(movementInput, PlayerCamera, Vector3.UnitY)
+                    : new Vector3(movementInput.X, 0, movementInput.Y);
 
-        private Vector3 GetInputDirection()
-        {
-            var moveDirection = new Vector2();
-            moveDirection += new Vector2(
-                (Input.IsKeyDown(Keys.A) ? -1 : 0) + (Input.IsKeyDown(Keys.D) ? 1 : 0),
-                (Input.IsKeyDown(Keys.W) ? 1 : 0) + (Input.IsKeyDown(Keys.S) ? -1 : 0)
-            );
+            // Broadcast the movement direction
+            MovementEventKey.Broadcast(worldMovementDirection);
 
-            return new Vector3(moveDirection.X, 0, moveDirection.Y);
-        }
+            // Handle camera rotation with mouse input
+            Vector2 cameraRotationInput =
+                new Vector2(Input.MouseDelta.X, -Input.MouseDelta.Y) * MouseSensitivity;
 
-        private Vector2 GetCameraDirection()
-        {
-            var cameraDirection = new Vector2();
+            // Broadcast the camera rotation input
+            CameraRotateEventKey.Broadcast(cameraRotationInput);
 
-            // Handle mouse locking/unlocking
-            HandleMouseLocking();
-
-            if (Input.IsMousePositionLocked)
-            {
-                // Apply smoothing to mouse movement (implement a smoothing method as needed)
-                var smoothedMouseDelta = SmoothMouseMovement(Input.MouseDelta);
-
-                // Apply sensitivity and time scaling once
-                cameraDirection +=
-                    new Vector2(smoothedMouseDelta.X, -smoothedMouseDelta.Y) * MouseSensitivity;
-            }
-
-            return cameraDirection;
-        }
-
-        private void HandleMouseLocking()
-        {
-            if (Input.IsMouseButtonDown(MouseButton.Left))
+            // Handle cursor locking
+            if (Input.IsMouseButtonPressed(MouseButton.Left))
             {
                 Input.LockMousePosition(true);
                 Game.IsMouseVisible = false;
@@ -77,31 +73,11 @@ namespace Test.PlayerController
                 Input.UnlockMousePosition();
                 Game.IsMouseVisible = true;
             }
+
         }
 
-        private Vector2 SmoothMouseMovement(Vector2 currentMouseDelta)
-        {
-            // Exponential smoothing factor; adjust as needed (between 0 and 1)
-            float smoothingFactor = 0.5f;
-
-            if (mouseDeltaHistory.Count == 0)
-                mouseDeltaHistory.Enqueue(currentMouseDelta);
-
-            Vector2 lastSmoothedDelta = mouseDeltaHistory.Peek();
-            Vector2 smoothedDelta = Vector2.Lerp(
-                lastSmoothedDelta,
-                currentMouseDelta,
-                smoothingFactor
-            );
-
-            mouseDeltaHistory.Clear();
-            mouseDeltaHistory.Enqueue(smoothedDelta);
-
-            return smoothedDelta;
-        }
-
-        private static Vector3 ConvertInputToWorldDirection(
-            Vector3 inputDirection,
+        public static Vector3 LogicDirectionToWorldDirection(
+            Vector2 logicDirection,
             CameraComponent camera,
             Vector3 upVector
         )
@@ -113,9 +89,8 @@ namespace Test.PlayerController
             forward.Normalize();
 
             var right = Vector3.Cross(forward, upVector);
-            right.Normalize();
-
-            var worldDirection = forward * inputDirection.Z + right * inputDirection.X;
+            var worldDirection = forward * logicDirection.Y + right * logicDirection.X;
+            worldDirection.Normalize();
             return worldDirection;
         }
     }

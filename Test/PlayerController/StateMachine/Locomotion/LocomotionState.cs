@@ -13,14 +13,13 @@ namespace Test.PlayerController.StateMachine.Locomotion
         protected EventReceiver<Vector3> inputDirectionReceiver;
         protected bool isMoving;
         protected bool isAiming;
-        protected Vector3 moveDirection;
+        protected Vector3 moveDirection = Vector3.Zero;
         protected float maxSpeed = 4;
-        protected Quaternion previousRotation = Quaternion.Identity;
-        protected float rotationSpeed = 10;
+        private float yawOrientation;
 
         public virtual void Enter(Dictionary<string, object> parameters)
         {
-            inputDirectionReceiver = new EventReceiver<Vector3>(PlayerInput.InputDirectionEventKey);
+            inputDirectionReceiver = new EventReceiver<Vector3>(PlayerInput.MovementEventKey);
             aimingReceiver = new EventReceiver<bool>(Context.AimingEventKey);
             if (parameters != null)
             {
@@ -50,26 +49,24 @@ namespace Test.PlayerController.StateMachine.Locomotion
         {
             if (isMoving)
             {
-                // Apply inertia for fluid motion
-                moveDirection = moveDirection * 0.85f + moveDirection * 0.15f;
+                inputDirectionReceiver.TryReceive(out Vector3 newMoveDirection);
+
+                moveDirection = moveDirection * 0.85f + newMoveDirection * 0.15f;
+
                 Context.Character.SetVelocity(moveDirection * maxSpeed);
 
-                // Handle rotation
-                if (moveDirection.LengthSquared() > 0.001f)
+                if (moveDirection.Length() > float.Epsilon)
                 {
-                    float yawOrientation = MathUtil.RadiansToDegrees(
+                    yawOrientation = MathUtil.RadiansToDegrees(
                         (float)Math.Atan2(-moveDirection.Z, moveDirection.X) + MathUtil.PiOverTwo
                     );
-                    Context.Model.Transform.Rotation = Quaternion.RotationYawPitchRoll(
-                        MathUtil.DegreesToRadians(yawOrientation),
-                        0,
-                        0
-                    );
                 }
-            }
-            else
-            {
-                Context.Character.SetVelocity(Vector3.Zero);
+
+                Context.Model.Transform.Rotation = Quaternion.RotationYawPitchRoll(
+                    MathUtil.DegreesToRadians(yawOrientation),
+                    0,
+                    0
+                );
             }
         }
 
