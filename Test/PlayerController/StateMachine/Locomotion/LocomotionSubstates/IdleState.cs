@@ -27,7 +27,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
                 isAiming = aiming;
             }
 
-            if (moveDirection.LengthSquared() > 0f)
+            if (currentMoveDirection.LengthSquared() > 0f)
             {
                 Context.LocomotionStateMachine.TransitionTo(
                     new RunningState(),

@@ -14,6 +14,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
         protected bool isMoving;
         protected bool isAiming;
         protected Vector3 moveDirection = Vector3.Zero;
+        protected Vector3 currentMoveDirection = Vector3.Zero;
         protected float maxSpeed = 4;
         private float yawOrientation;
 
@@ -31,36 +32,27 @@ namespace Test.PlayerController.StateMachine.Locomotion
         {
             if (inputDirectionReceiver.TryReceive(out Vector3 inputDirection))
             {
-                isMoving = true;
-                moveDirection = inputDirection;
+                currentMoveDirection = inputDirection;
             }
             else
             {
-                isMoving = false;
+                currentMoveDirection = Vector3.Zero;
             }
 
-            if (aimingReceiver.TryReceive(out bool aiming))
-            {
-                isAiming = aiming;
-            }
+            aimingReceiver.TryReceive(out isAiming);
         }
 
         public virtual void Update()
         {
-            if (isMoving)
+            moveDirection = moveDirection * 0.85f + currentMoveDirection * 0.15f;
+
+            Context.Character.SetVelocity(moveDirection * maxSpeed);
+
+            if (moveDirection.Length() > float.Epsilon)
             {
-                inputDirectionReceiver.TryReceive(out Vector3 newMoveDirection);
-
-                moveDirection = moveDirection * 0.85f + newMoveDirection * 0.15f;
-
-                Context.Character.SetVelocity(moveDirection * maxSpeed);
-
-                if (moveDirection.Length() > float.Epsilon)
-                {
-                    yawOrientation = MathUtil.RadiansToDegrees(
-                        (float)Math.Atan2(-moveDirection.Z, moveDirection.X) + MathUtil.PiOverTwo
-                    );
-                }
+                yawOrientation = MathUtil.RadiansToDegrees(
+                    (float)Math.Atan2(-moveDirection.Z, moveDirection.X) + MathUtil.PiOverTwo
+                );
 
                 Context.Model.Transform.Rotation = Quaternion.RotationYawPitchRoll(
                     MathUtil.DegreesToRadians(yawOrientation),

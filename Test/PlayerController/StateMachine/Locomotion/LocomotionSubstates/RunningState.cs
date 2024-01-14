@@ -27,7 +27,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
                 isAiming = aiming;
             }
 
-            if (moveDirection.LengthSquared() <= float.Epsilon)
+            if (currentMoveDirection.LengthSquared() <= float.Epsilon)
             {
                 Context.LocomotionStateMachine.TransitionTo(
                     new IdleState(),
