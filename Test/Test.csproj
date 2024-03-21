@@ -12,6 +12,7 @@
     <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.2.0.2121" IncludeAssets="build;buildTransitive" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Game Logic\" />
     <Folder Include="PlayerController\StateMachine\Interaction\InteractionSubstates\" />
   </ItemGroup>
 </Project>
