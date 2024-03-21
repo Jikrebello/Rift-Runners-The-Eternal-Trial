@@ -30,13 +30,7 @@ namespace Test
         public StateMachine CombatStateMachine { get; set; }
         public StateMachine LocomotionStateMachine { get; set; }
 
-        // Events
-        public EventKey<bool> AimingEventKey = new("Player Event", "Aiming");
+        // Event Receivers
         public EventReceiver<bool> AimingReceiver { get; set; }
-
-        public void OnAimEventKeyHandler(bool isAiming)
-        {
-            AimingEventKey.Broadcast(isAiming);
-        }
     }
 }

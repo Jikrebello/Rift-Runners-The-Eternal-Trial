@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C#: Test.Windows",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}\\Test.Windows\\Test.Windows.csproj",
+            "launchConfigurationId": "TargetFramework=;Test.Windows",
+            "console":"externalTerminal",
+            "logging": {
+                "moduleLoad": false,
+
+            }
+        },
+        
+    ]
+}

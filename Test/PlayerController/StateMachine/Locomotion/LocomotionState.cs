@@ -21,7 +21,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
         public virtual void Enter(Dictionary<string, object> parameters)
         {
             inputDirectionReceiver = new EventReceiver<Vector3>(PlayerInput.MovementEventKey);
-            aimingReceiver = new EventReceiver<bool>(Context.AimingEventKey);
+            aimingReceiver = new EventReceiver<bool>(PlayerInput.AimingEventKey);
             if (parameters != null)
             {
                 isAiming = (bool)parameters["aiming"];

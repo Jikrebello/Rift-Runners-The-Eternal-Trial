@@ -16,7 +16,7 @@ namespace Test.PlayerController.StateMachine.Combat
             // Logic here
             if (Context.Input.IsMouseButtonDown(Stride.Input.MouseButton.Right))
             {
-                Context.OnAimEventKeyHandler(true);
+                PlayerInput.OnAimEventKeyHandler(true);
                 Context.CombatStateMachine.TransitionTo(new AimingState());
             }
         }
