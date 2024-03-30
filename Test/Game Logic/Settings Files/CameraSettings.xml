@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CameraSettings>
+	<VerticalSpeed>65</VerticalSpeed>
+	<RotationSpeed>360</RotationSpeed>
+	<InvertX>false</InvertX>
+	<InvertY>true</InvertY>
+	<BaseCameraPosition x="0" y="0" z="-5" />
+	<AimingCameraOffset x="-0.5" y="0" z="-5" />
+	<TransitionSpeed>15.0</TransitionSpeed>
+	<DefaultFOV>45</DefaultFOV>
+	<AimingFOV>25</AimingFOV>
+</CameraSettings>

@@ -1,5 +1,5 @@
-﻿using Stride.Core.Mathematics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Stride.Core.Mathematics;
 
 namespace Test.PlayerController.StateMachine.Locomotion
 {
@@ -15,17 +15,17 @@ namespace Test.PlayerController.StateMachine.Locomotion
         {
             // Logic here
             base.HandleInput();
+
+            if (aimingReceiver.TryReceive(out bool aiming))
+            {
+                isAiming = aiming;
+            }
         }
 
         public override void Update()
         {
             base.Update(); // Logic here
             Context.ScriptComponent.DebugText.Print("In Running state", new Int2(350, 450));
-
-            if (aimingReceiver.TryReceive(out bool aiming))
-            {
-                isAiming = aiming;
-            }
 
             if (currentMoveDirection.LengthSquared() <= float.Epsilon)
             {

@@ -1,5 +1,5 @@
-﻿using Stride.Core.Mathematics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Stride.Core.Mathematics;
 
 namespace Test.PlayerController.StateMachine.Combat
 {
@@ -8,23 +8,31 @@ namespace Test.PlayerController.StateMachine.Combat
         public override void Enter(Dictionary<string, object> parameters)
         {
             // Logic here
+            base.Enter(parameters);
         }
 
         public override void HandleInput()
         {
             // Logic here
-            if (!Context.Input.IsMouseButtonDown(Stride.Input.MouseButton.Right))
+            base.HandleInput();
+
+            if (aimingReceiver.TryReceive(out bool aiming))
             {
-                PlayerInput.OnAimEventKeyHandler(false);
-                Context.CombatStateMachine.TransitionTo(new CombatState());
+                isAiming = aiming;
             }
         }
 
         public override void Update()
         {
             // Logic here
-            //base.Update();
+            base.Update();
+
             Context.ScriptComponent.DebugText.Print("In Aiming state", new Int2(550, 450));
+
+            if (!isAiming)
+            {
+                Context.CombatStateMachine.TransitionTo(new CombatState());
+            }
         }
 
         public override void Exit()

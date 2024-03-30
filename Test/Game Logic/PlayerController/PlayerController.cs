@@ -25,9 +25,9 @@ namespace Test.PlayerController.StateMachine
                 Input = Input,
                 Model = Entity.GetChild(0)
             };
-
             _playerContext.Log.ActivateLog(LogMessageType.Info);
 
+            // Initialize the State Machines
             _combatStateMachine = new StateMachine(_playerContext);
             _playerContext.CombatStateMachine = _combatStateMachine;
             _combatStateMachine.TransitionTo(new CombatState());

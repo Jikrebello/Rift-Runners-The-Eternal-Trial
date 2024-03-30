@@ -20,6 +20,7 @@ namespace Test.PlayerController
         public List<Keys> MoveLeftKeys { get; } = [];
         public List<Keys> MoveDownKeys { get; } = [];
         public List<Keys> MoveRightKeys { get; } = [];
+        public List<MouseButton> AimButtons { get; set; } = [];
 
         private Vector2 _inputMovementDirection = Vector2.Zero;
         private Vector3 _worldMovementDirection = Vector3.Zero;
@@ -31,24 +32,49 @@ namespace Test.PlayerController
             AssignKeys();
         }
 
-        public override void Update()
-        {
-            HandleInputMovementDirectionAndBroadcastWorldDirection();
-            HandleCameraRotationInputAndBroadcast();
-            HandleCursorLocking();
-        }
-
-        public static void OnAimEventKeyHandler(bool IsAiming)
-        {
-            AimingEventKey.Broadcast(IsAiming);
-        }
-
         private void AssignKeys()
         {
             MoveUpKeys.Add(Keys.W);
             MoveLeftKeys.Add(Keys.A);
             MoveDownKeys.Add(Keys.S);
             MoveRightKeys.Add(Keys.D);
+
+            AimButtons.Add(MouseButton.Right);
+        }
+
+        public override void Update()
+        {
+            HandleCameraMovement();
+
+            HandleCameraAiming();
+        }
+
+        #region Camera Aiming
+        private void HandleCameraAiming()
+        {
+            if (AimButtons.Any(Input.IsMouseButtonDown))
+            {
+                OnAimEventKeyHandler(true);
+            }
+            else
+            {
+                OnAimEventKeyHandler(false);
+            }
+        }
+
+        private static void OnAimEventKeyHandler(bool IsAiming)
+        {
+            AimingEventKey.Broadcast(IsAiming);
+        }
+        #endregion
+
+
+        #region Camera Movement
+        private void HandleCameraMovement()
+        {
+            HandleInputMovementDirectionAndBroadcastWorldDirection();
+            HandleCameraRotationInputAndBroadcast();
+            HandleCursorLocking();
         }
 
         private void HandleInputMovementDirectionAndBroadcastWorldDirection()
@@ -68,27 +94,6 @@ namespace Test.PlayerController
                 _inputMovementDirection
             );
             MovementEventKey.Broadcast(_worldMovementDirection);
-        }
-
-        private void HandleCameraRotationInputAndBroadcast()
-        {
-            _cameraRotationInput =
-                new Vector2(Input.MouseDelta.X, -Input.MouseDelta.Y) * MouseSensitivity;
-            CameraRotateEventKey.Broadcast(_cameraRotationInput);
-        }
-
-        private void HandleCursorLocking()
-        {
-            if (Input.IsMouseButtonPressed(MouseButton.Left))
-            {
-                Input.LockMousePosition(true);
-                Game.IsMouseVisible = false;
-            }
-            else if (Input.IsKeyPressed(Keys.Escape))
-            {
-                Input.UnlockMousePosition();
-                Game.IsMouseVisible = true;
-            }
         }
 
         private Vector3 ConvertInputMovementDirectionToWorldMovementDirection(
@@ -116,5 +121,27 @@ namespace Test.PlayerController
             worldDirection.Normalize();
             return worldDirection;
         }
+
+        private void HandleCameraRotationInputAndBroadcast()
+        {
+            _cameraRotationInput =
+                new Vector2(Input.MouseDelta.X, -Input.MouseDelta.Y) * MouseSensitivity;
+            CameraRotateEventKey.Broadcast(_cameraRotationInput);
+        }
+
+        private void HandleCursorLocking()
+        {
+            if (Input.IsMouseButtonPressed(MouseButton.Left))
+            {
+                Input.LockMousePosition(true);
+                Game.IsMouseVisible = false;
+            }
+            else if (Input.IsKeyPressed(Keys.Escape))
+            {
+                Input.UnlockMousePosition();
+                Game.IsMouseVisible = true;
+            }
+        }
+        #endregion
     }
 }

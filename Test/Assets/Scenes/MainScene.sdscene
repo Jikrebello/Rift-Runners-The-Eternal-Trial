@@ -13,19 +13,8 @@ Hierarchy:
         - ref!! a50db102-5c87-4e6b-8f8d-a7559f2b4752
         - ref!! 7da6f860-9736-40f1-9398-077302111bf7
         - ref!! 5fcb1b8a-7be4-4000-a2c1-c275d4ac2096
-        - ref!! 0557a29d-7334-4b76-985b-1237904b60eb
+        - ref!! 90a0f198-66d8-48b5-b7f2-e025acd3b53e
     Parts:
-        -   Entity:
-                Id: 0557a29d-7334-4b76-985b-1237904b60eb
-                Name: Player
-                Components:
-                    86a76f2ed198bea48349511c25deb201: !TransformComponent
-                        Id: 1998c81e-ccc0-4e7a-abb1-97414c003ff5
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children:
-                            d86b096474b53a16d6217a817b8f0227: ref!! d7499337-97f7-49d4-88b3-a18c8ac6265c
         -   Folder: null
             Entity:
                 Id: 222352e6-551c-49df-be6d-101e5455631a
@@ -41,6 +30,21 @@ Hierarchy:
                         Id: 7e51dd4b-931c-4d0f-9b44-715e2720d4a6
                         Model: ef7220c5-4d7a-4730-b853-d485dc198623:Models/Cylinder
                         Materials: {}
+                    b5578cf3829a6da97f1c4192dd95c43b: !StaticColliderComponent
+                        Id: 83c12e2d-d4e9-46c0-bcb0-136140ba4134
+                        CollisionGroup: StaticFilter
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            b868ecab85de6a0a3a3972b7377227f8: !CylinderColliderShapeDesc
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
         -   Entity:
                 Id: 255ffa89-0602-477a-bef7-4bda7efb384c
                 Name: Directional light
@@ -89,9 +93,9 @@ Hierarchy:
                 Components:
                     fcc844d6294b5de742efb7ba7cb2953b: !TransformComponent
                         Id: 9bf38f36-9c52-421e-8628-b4b1cef8cd9d
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Position: {X: 0.0, Y: 1.4901161E-08, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 9.025014, Y: 1.0, Z: 9.025014}
+                        Scale: {X: 10.0, Y: 1.0, Z: 10.0}
                         Children: {}
                     bca15289f2dac593a7e7f4426b50e8ae: !ModelComponent
                         Id: 78072d54-1291-4ae4-ad5a-81ea5f1bcd42
@@ -108,9 +112,11 @@ Hierarchy:
                         IsTrigger: false
                         AlwaysUpdateNaviMeshCache: false
                         ColliderShapes:
-                            65b9adcf270123c523e2ca0b9a7602c8: !StaticPlaneColliderShapeDesc
-                                Normal: {X: 0.0, Y: 1.0, Z: 0.0}
-                                Offset: 0.0
+                            9c4e4b1a875fe0cee2a2af9c62ac7aeb: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 10.0, Y: 0.01, Z: 10.0}
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
         -   Folder: null
             Entity:
                 Id: 7da6f860-9736-40f1-9398-077302111bf7
@@ -126,14 +132,29 @@ Hierarchy:
                         Id: 26399c64-d52c-489e-965d-636d9d9d999b
                         Model: ef7220c5-4d7a-4730-b853-d485dc198623:Models/Cylinder
                         Materials: {}
+                    7ca58cae2892994de3b5c0343b4070cf: !StaticColliderComponent
+                        Id: 4863da42-f3ca-4ca5-a46c-385095284cdf
+                        CollisionGroup: StaticFilter
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            24ba98566595f861b9b184f9ebdd4e47: !CylinderColliderShapeDesc
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
         -   Entity:
                 Id: 8ded6781-6bf9-403c-8dfc-48d466388d17
                 Name: Camera
                 Components:
                     f9fb1b3e263b4cbd52e2f89a75c79371: !TransformComponent
                         Id: b8dda07b-1b45-4631-bd0b-15faf16edb8d
-                        Position: {X: 0.0, Y: 0.0, Z: 5.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Position: {X: 0.0, Y: 0.0, Z: -5.0}
+                        Rotation: {X: 0.0, Y: 1.0, Z: 0.0, W: -4.371139E-08}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     1d42cf94fd7586a3713d8e76da5f3afc: !CameraComponent
@@ -143,20 +164,12 @@ Hierarchy:
                         Slot: 702a0cb9-2057-4b32-a5e6-ba60f5e887e5
                     af423494f706c5ab4ea953441b763abc: !Test.PlayerController.ThirdPersonCamera,Test
                         Id: 0d4ec94f-e724-4974-b2f8-c5862a49ab7d
-                        DefaultDistance: 6.0
-                        MinimumDistance: 0.4
-                        ConeRadius: 1.25
-                        InvertX: false
-                        MinVerticalAngle: -20.0
-                        MaxVerticalAngle: 70.0
-                        InvertY: false
-                        RotationSpeed: 360.0
-                        VerticalSpeed: 65.0
             Base:
                 BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Prefabs/Player
                 BasePartId: 52655426-ed6a-40df-b017-b68a2e26f418
                 InstanceId: 01c1b277-0ef8-4287-a247-6d75f3cca8fe
-        -   Entity:
+        -   Folder: Player
+            Entity:
                 Id: 90a0f198-66d8-48b5-b7f2-e025acd3b53e
                 Name: Player
                 Components:
@@ -170,6 +183,7 @@ Hierarchy:
                             4c896a11a2b95b77fe5c4150ec8895a2: ref!! a915da56-b0fc-4f69-852c-3a2e0badd5fa
                     a4285ee58b5428b8b25af21cc95bef67: !CharacterComponent
                         Id: 232a3ab6-3e19-4f53-a1e0-fa4e4c3af8bc
+                        CollisionGroup: KinematicFilter
                         CanSleep: false
                         Restitution: 0.0
                         Friction: 0.5
@@ -182,7 +196,9 @@ Hierarchy:
                         Gravity: {X: 0.0, Y: -10.0, Z: 0.0}
                         ColliderShapes:
                             4bce09d191372aaeff4b45ad43363342: !CapsuleColliderShapeDesc
-                                LocalOffset: {X: 0.0, Y: 0.5, Z: 0.0}
+                                Length: 1.2
+                                Radius: 0.4
+                                LocalOffset: {X: 0.0, Y: 0.95, Z: 0.0}
                                 LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                     3589ae35ec0c0860742475c19aebe41c: !Test.PlayerController.StateMachine.PlayerController,Test
                         Id: afc8e83e-8f3e-4687-8473-22873be09f29
@@ -190,10 +206,11 @@ Hierarchy:
                         Id: 92f6bc71-1711-4b54-af06-0872b09a71fa
                         MouseSensitivity: 1.0
                         PlayerCamera: ref!! 133c81da-f965-417a-9b8f-1200d86c0a0c
-                        MoveLeftKeys: {}
-                        MoveRightKeys: {}
                         MoveUpKeys: {}
+                        MoveLeftKeys: {}
                         MoveDownKeys: {}
+                        MoveRightKeys: {}
+                        AimButtons: {}
             Base:
                 BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Prefabs/Player
                 BasePartId: b38b2d3b-282a-4727-9a86-8fdc249e4f60
@@ -204,7 +221,7 @@ Hierarchy:
                 Components:
                     906ed89574d712b6ec796875d43531a0: !TransformComponent
                         Id: a915da56-b0fc-4f69-852c-3a2e0badd5fa
-                        Position: {X: 0.0, Y: 1.6597574, Z: 0.0}
+                        Position: {X: 0.0, Y: 1.66, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:
@@ -220,14 +237,29 @@ Hierarchy:
                 Components:
                     9605970f96fe5cad8987e93b91efc88d: !TransformComponent
                         Id: bbb50db7-3c2d-44d2-bd9e-968cdf98b45a
-                        Position: {X: -4.56427, Y: 0.8423833, Z: 1.9189901}
+                        Position: {X: -4.56427, Y: 1.7874355, Z: 1.9189901}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Scale: {X: 1.0, Y: 3.9363313, Z: 1.0}
                         Children: {}
                     ab8390b552dc79f0e7450a0415510624: !ModelComponent
                         Id: 3b861840-1a9a-4cf4-a448-4e6ccf22111f
                         Model: ef7220c5-4d7a-4730-b853-d485dc198623:Models/Cylinder
                         Materials: {}
+                    366d6e43760d32b53d71448326d8be52: !StaticColliderComponent
+                        Id: 9cb56bd5-d35c-4221-a53c-d0b6f39ae156
+                        CollisionGroup: StaticFilter
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            5925e48b517f641103f717a4845eacb3: !CylinderColliderShapeDesc
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
         -   Entity:
                 Id: a792ae8c-656e-4480-ae07-8532226e03c9
                 Name: Cylinder
@@ -242,6 +274,21 @@ Hierarchy:
                         Id: bf94f489-6db2-4837-8ceb-d025e6aa7fd2
                         Model: ef7220c5-4d7a-4730-b853-d485dc198623:Models/Cylinder
                         Materials: {}
+                    112fd98eea8523318184b787b3fb8683: !StaticColliderComponent
+                        Id: e7862fb5-5dbd-4d5e-8fd0-8e7fdbc4cdd0
+                        CollisionGroup: StaticFilter
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            9fd2abc5c6093fbd507d43f025d45d33: !CylinderColliderShapeDesc
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
         -   Entity:
                 Id: b3e414b6-dadf-4180-a232-ec2e678abd69
                 Name: mannequinModel
