@@ -7,31 +7,32 @@ namespace Test.PlayerController
 {
     public class ThirdPersonCamera : SyncScript
     {
-        private CameraOrientation orientation;
-        private CameraInputReceiver inputReceiver;
-        private Entity cameraTarget;
-        private CameraComponent cameraComponent;
+        private CameraOrientation _orientation;
+        private CameraInputReceiver _inputReceiver;
+        private Entity _cameraTarget;
+        private CameraComponent _cameraComponent;
+        private bool _isAiming = false;
 
         public override void Start()
         {
             base.Start();
 
-            orientation = new CameraOrientation();
-            inputReceiver = new CameraInputReceiver(
+            _orientation = new CameraOrientation();
+            _inputReceiver = new CameraInputReceiver(
                 PlayerInput.CameraRotateEventKey,
                 PlayerInput.AimingEventKey
             );
-            cameraTarget = Entity.GetParent();
-            cameraComponent = Entity.Get<CameraComponent>();
+            _cameraTarget = Entity.GetParent();
+            _cameraComponent = Entity.Get<CameraComponent>();
 
-            if (cameraTarget == null)
+            if (_cameraTarget == null)
             {
                 throw new InvalidOperationException(
                     "ThirdPersonCamera must be attached to CameraTarget entity as a child."
                 );
             }
 
-            if (cameraComponent == null)
+            if (_cameraComponent == null)
             {
                 throw new InvalidOperationException("No CameraComponent found on the entity.");
             }
@@ -39,13 +40,13 @@ namespace Test.PlayerController
 
         public override void Update()
         {
-            if (inputReceiver.TryReceiveCameraMovement(out Vector2 cameraMovement))
+            if (_inputReceiver.TryReceiveCameraMovement(out Vector2 cameraMovement))
             {
-                orientation.UpdateTargetRotation(cameraMovement, cameraTarget);
+                _orientation.UpdateTargetRotation(cameraMovement, _cameraTarget);
             }
 
-            bool isAiming = inputReceiver.TryReceiveIsAiming();
-            UpdateCameraPositionAndFOV(isAiming);
+            _isAiming = _inputReceiver.TryReceiveIsAiming();
+            UpdateCameraPositionAndFOV(_isAiming);
         }
 
         private void UpdateCameraPositionAndFOV(bool isAiming)
@@ -62,8 +63,8 @@ namespace Test.PlayerController
                 CameraSettings.TransitionSpeed * (float)Game.UpdateTime.WarpElapsed.TotalSeconds
             );
 
-            cameraComponent.VerticalFieldOfView = MathUtil.Lerp(
-                cameraComponent.VerticalFieldOfView,
+            _cameraComponent.VerticalFieldOfView = MathUtil.Lerp(
+                _cameraComponent.VerticalFieldOfView,
                 targetFOV,
                 CameraSettings.TransitionSpeed * (float)Game.UpdateTime.WarpElapsed.TotalSeconds
             );

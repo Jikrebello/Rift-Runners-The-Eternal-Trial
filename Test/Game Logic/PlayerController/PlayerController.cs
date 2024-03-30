@@ -23,7 +23,7 @@ namespace Test.PlayerController.StateMachine
                 Character = Entity.Get<CharacterComponent>(),
                 PlayerInput = Entity.Get<PlayerInput>(),
                 Input = Input,
-                Model = Entity.GetChild(0)
+                Model = Entity.GetChild(0),
             };
             _playerContext.Log.ActivateLog(LogMessageType.Info);
 

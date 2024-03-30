@@ -10,9 +10,13 @@ namespace Test.PlayerController
 {
     public class PlayerInput : SyncScript
     {
-        public static readonly EventKey<Vector3> MovementEventKey = new();
-        public static readonly EventKey<Vector2> CameraRotateEventKey = new();
+        public static readonly EventKey<Vector3> MovementEventKey =
+            new("Player Event", "Input Movement");
+        public static readonly EventKey<Vector2> CameraRotateEventKey =
+            new("Camera Events", "Camera Rotate");
         public static readonly EventKey<bool> AimingEventKey = new("Player Event", "Aiming");
+        public static readonly EventKey<Vector3> CameraForwardEventKey =
+            new("Camera Events", "Camera Forward");
 
         public CameraComponent PlayerCamera { get; set; }
         public float MouseSensitivity = 1f;
@@ -47,6 +51,8 @@ namespace Test.PlayerController
             HandleCameraMovement();
 
             HandleCameraAiming();
+
+            BroadcastCameraForwardDirection();
         }
 
         #region Camera Aiming
@@ -143,5 +149,14 @@ namespace Test.PlayerController
             }
         }
         #endregion
+
+        private void BroadcastCameraForwardDirection()
+        {
+            if (PlayerCamera != null)
+            {
+                var cameraForward = PlayerCamera.Entity.Transform.WorldMatrix.Forward;
+                CameraForwardEventKey.Broadcast(cameraForward);
+            }
+        }
     }
 }

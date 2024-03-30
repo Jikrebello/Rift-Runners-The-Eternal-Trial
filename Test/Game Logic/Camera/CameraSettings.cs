@@ -6,7 +6,7 @@ using Stride.Core.Mathematics;
 
 namespace Test.Game_Logic.Camera
 {
-    public static class CameraSettings
+    public class CameraSettings
     {
         public static float MinVerticalAngle { get; set; } = -10f;
         public static float MaxVerticalAngle { get; set; } = 70f;
@@ -21,14 +21,14 @@ namespace Test.Game_Logic.Camera
         public static float DefaultFOV { get; set; }
         public static float AimingFOV { get; set; }
 
-        private static FileSystemWatcher fileWatcher;
-        private static readonly string filePath =
+        private static FileSystemWatcher _fileWatcher;
+        private static readonly string _filePath =
             @"D:\Stride Projects\Rift-Runners-The-Eternal-Trial\Test\Game Logic\Settings Files\CameraSettings.xml";
 
         static CameraSettings()
         {
-            LoadSettingsFromXML(filePath);
-            SetupFileWatcher(filePath);
+            LoadSettingsFromXML(_filePath);
+            SetupFileWatcher(_filePath);
         }
 
         private static void LoadSettingsFromXML(string filePath)
@@ -73,26 +73,26 @@ namespace Test.Game_Logic.Camera
 
         private static void SetupFileWatcher(string path)
         {
-            fileWatcher = new FileSystemWatcher
+            _fileWatcher = new FileSystemWatcher
             {
                 Path = Path.GetDirectoryName(path),
                 Filter = Path.GetFileName(path),
                 NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size
             };
 
-            fileWatcher.Changed += OnChanged;
-            fileWatcher.EnableRaisingEvents = true;
+            _fileWatcher.Changed += OnChanged;
+            _fileWatcher.EnableRaisingEvents = true;
         }
 
         private static async void OnChanged(object sender, FileSystemEventArgs e)
         {
-            fileWatcher.EnableRaisingEvents = false;
+            _fileWatcher.EnableRaisingEvents = false;
 
             await Task.Delay(500);
 
-            LoadSettingsFromXML(filePath);
+            LoadSettingsFromXML(_filePath);
 
-            fileWatcher.EnableRaisingEvents = true;
+            _fileWatcher.EnableRaisingEvents = true;
         }
     }
 }
