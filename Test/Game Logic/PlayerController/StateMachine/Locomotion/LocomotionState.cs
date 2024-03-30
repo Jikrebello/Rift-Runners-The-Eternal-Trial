@@ -17,6 +17,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
         protected Vector3 moveDirection = Vector3.Zero;
         protected Vector3 currentMoveDirection = Vector3.Zero;
         protected float maxSpeed = 4;
+        protected Vector3 relativeMovementDirection;
 
         // Controls smoothing of the movement velocity.
         private const float _VELOCITY_SMOOTH_FACTOR = 0.85f;
@@ -91,6 +92,15 @@ namespace Test.PlayerController.StateMachine.Locomotion
                 // Align the character's forward direction with the camera's
                 var newOrientation = Quaternion.LookRotation(cameraForward, Vector3.UnitY);
                 Context.Model.Transform.Rotation = newOrientation;
+
+                // Calculate relative movement direction
+                var rotationMatrix = Matrix.RotationQuaternion(newOrientation);
+                relativeMovementDirection = Vector3.TransformNormal(
+                    currentMoveDirection,
+                    Matrix.Invert(rotationMatrix)
+                );
+
+                relativeMovementDirection.Normalize();
             }
         }
 
