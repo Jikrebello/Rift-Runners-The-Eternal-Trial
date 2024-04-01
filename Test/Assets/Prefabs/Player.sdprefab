@@ -64,8 +64,8 @@ Hierarchy:
                         Gravity: {X: 0.0, Y: -10.0, Z: 0.0}
                         ColliderShapes:
                             4bce09d191372aaeff4b45ad43363342: !CapsuleColliderShapeDesc
-                                Length: 1.2
-                                Radius: 0.4
+                                Length: 1.5
+                                Radius: 0.18
                                 LocalOffset: {X: 0.0, Y: 0.95, Z: 0.0}
                                 LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                     3589ae35ec0c0860742475c19aebe41c: !Test.PlayerController.StateMachine.PlayerController,Test

@@ -25,7 +25,8 @@ namespace Test.PlayerController.StateMachine.Locomotion
 
         public override void Update()
         {
-            base.Update(); // Logic here
+            // Logic here
+            base.Update();
             Context.ScriptComponent.DebugText.Print("In Running state", new Int2(350, 450));
 
             ShouldMoveToIdle(currentMoveDirection.LengthSquared() <= float.Epsilon);
