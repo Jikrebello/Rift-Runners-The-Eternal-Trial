@@ -7,6 +7,8 @@ namespace Test.PlayerController.StateMachine.Locomotion
 {
     public class LocomotionState : IState
     {
+        public static readonly EventKey<Vector3> RelativeMovementDirectionEventKey =
+            new("Player Event", "RelativeMovementDirection");
         public PlayerContext Context { get; set; }
 
         protected EventReceiver<bool> aimingReceiver;
@@ -16,7 +18,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
         protected bool isAiming;
         protected Vector3 moveDirection = Vector3.Zero;
         protected Vector3 currentMoveDirection = Vector3.Zero;
-        protected float maxSpeed = 4;
+        protected float maxSpeed = 5;
         protected Vector3 relativeMovementDirection;
 
         // Controls smoothing of the movement velocity.
@@ -101,6 +103,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
                 );
 
                 relativeMovementDirection.Normalize();
+                RelativeMovementDirectionEventKey.Broadcast(relativeMovementDirection);
             }
         }
 

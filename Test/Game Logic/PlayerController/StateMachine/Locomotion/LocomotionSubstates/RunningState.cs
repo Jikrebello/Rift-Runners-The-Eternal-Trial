@@ -6,6 +6,10 @@ namespace Test.PlayerController.StateMachine.Locomotion
 {
     public class RunningState : LocomotionState
     {
+        private readonly float forwardsAimingMaxSpeed = 4.5f;
+        private readonly float horizontalAimingSpeed = 4.8f;
+        private readonly float backwardsAimingMaxSpeed = 3.5f;
+
         public override void Enter(Dictionary<string, object> parameters)
         {
             // Logic here
@@ -64,6 +68,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
                         $"Diagonal Strafing {diagonalDirection} Forwards",
                         new Int2(350, 350)
                     );
+                    Context.Character.SetVelocity(moveDirection * forwardsAimingMaxSpeed);
                 }
                 else if (
                     Math.Abs(relativeMovementDirection.X) > 0.1f
@@ -75,6 +80,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
                         $"Diagonal Strafing {diagonalDirection} Backwards",
                         new Int2(350, 350)
                     );
+                    Context.Character.SetVelocity(moveDirection * backwardsAimingMaxSpeed);
                 }
                 else if (Math.Abs(relativeMovementDirection.X) > 0.1f)
                 {
@@ -84,6 +90,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
                         $"Horizontal Strafing {strafeDirectionDescription}",
                         new Int2(350, 350)
                     );
+                    Context.Character.SetVelocity(moveDirection * horizontalAimingSpeed);
                 }
                 else if (relativeMovementDirection.Z > 0.1f)
                 {
@@ -91,6 +98,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
                         "Strafing Forwards",
                         new Int2(350, 350)
                     );
+                    Context.Character.SetVelocity(moveDirection * forwardsAimingMaxSpeed);
                 }
                 else if (relativeMovementDirection.Z < -0.1f)
                 {
@@ -98,6 +106,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
                         "Strafing Backward",
                         new Int2(350, 350)
                     );
+                    Context.Character.SetVelocity(moveDirection * backwardsAimingMaxSpeed);
                 }
             }
             else
