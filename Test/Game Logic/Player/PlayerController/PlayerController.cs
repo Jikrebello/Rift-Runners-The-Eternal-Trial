@@ -1,11 +1,11 @@
 ﻿using Stride.Core.Diagnostics;
 using Stride.Engine;
 using Stride.Physics;
-using Test.Game_Logic.Player.PlayerController.StateMachine.Combat.CombatSubstates;
-using Test.PlayerController.StateMachine.Combat;
-using Test.PlayerController.StateMachine.Locomotion;
+using Test.Game_Logic.Player.PlayerController.StateMachines;
+using Test.Game_Logic.Player.PlayerController.StateMachines.States.Combat.CombatSubstates;
+using Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotion.LocomotionSubstates;
 
-namespace Test.PlayerController.StateMachine
+namespace Test.Game_Logic.Player.PlayerController
 {
     public class PlayerController : SyncScript
     {

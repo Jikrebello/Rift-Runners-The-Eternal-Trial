@@ -2,7 +2,7 @@
 using Stride.Core.Mathematics;
 using Test.Game_Logic.Player.AnimationController;
 
-namespace Test.PlayerController.StateMachine.Locomotion
+namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotion.LocomotionSubstates
 {
     public class IdleState : LocomotionState
     {

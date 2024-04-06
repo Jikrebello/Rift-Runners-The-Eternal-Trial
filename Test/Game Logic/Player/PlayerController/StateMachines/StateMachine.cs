@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Test.PlayerController.StateMachine
+namespace Test.Game_Logic.Player.PlayerController.StateMachines
 {
     public class StateMachine
     {

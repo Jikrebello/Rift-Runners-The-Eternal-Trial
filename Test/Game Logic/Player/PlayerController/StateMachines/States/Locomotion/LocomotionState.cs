@@ -4,7 +4,7 @@ using Stride.Core.Mathematics;
 using Stride.Engine.Events;
 using Test.Game_Logic.Player.AnimationController;
 
-namespace Test.PlayerController.StateMachine.Locomotion
+namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotion
 {
     public class LocomotionState : IState
     {

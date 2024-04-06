@@ -1,7 +1,7 @@
-﻿using Stride.Core.Mathematics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Stride.Core.Mathematics;
 
-namespace Test.PlayerController.StateMachine.Airborne
+namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.AirborneSubstates
 {
     public class JumpState : AirborneState
     {

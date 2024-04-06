@@ -1,45 +1,41 @@
 ﻿using System.Collections.Generic;
 using Stride.Core.Mathematics;
 using Test.Game_Logic.Player.AnimationController;
-using Test.Game_Logic.Player.PlayerController.StateMachine.Combat.CombatSubstates;
 
-namespace Test.PlayerController.StateMachine.Combat
+namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Combat.CombatSubstates
 {
-    public class AimingState : CombatState
+    public class MeleeState : CombatState
     {
         public override void Enter(Dictionary<string, object> parameters)
         {
-            // Logic here
             base.Enter(parameters);
         }
 
         public override void HandleInput()
         {
-            // Logic here
             base.HandleInput();
         }
 
         public override void BroadcastAnimationState()
         {
-            CombatAnimationStateEventKey.Broadcast(CombatAnimationState.Aiming);
+            CombatAnimationStateEventKey.Broadcast(CombatAnimationState.Melee);
         }
 
         public override void Update()
         {
-            // Logic here
             base.Update();
 
-            Context.ScriptComponent.DebugText.Print("In Aiming state", new Int2(550, 450));
+            Context.ScriptComponent.DebugText.Print("In Melee state", new Int2(550, 450));
 
-            if (!isAiming)
+            if (isAiming)
             {
-                Context.CombatStateMachine.TransitionTo(new MeleeState());
+                Context.CombatStateMachine.TransitionTo(new AimingState());
             }
         }
 
         public override void Exit()
         {
-            // Logic here
+            base.Exit();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Stride.Core.Mathematics;
 
-namespace Test.PlayerController.StateMachine.Aquatic
+namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Aquatic
 {
     public class AquaticState : IState
     {

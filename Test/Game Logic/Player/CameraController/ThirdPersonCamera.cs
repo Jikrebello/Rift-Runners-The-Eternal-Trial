@@ -1,9 +1,9 @@
 ﻿using System;
 using Stride.Core.Mathematics;
 using Stride.Engine;
-using Test.Game_Logic.Camera;
+using Test.Game_Logic.Player.PlayerController;
 
-namespace Test.PlayerController
+namespace Test.Game_Logic.Player.CameraController
 {
     public class ThirdPersonCamera : SyncScript
     {

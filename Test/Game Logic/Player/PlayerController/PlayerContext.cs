@@ -5,10 +5,9 @@ using Stride.Games;
 using Stride.Input;
 using Stride.Physics;
 using Stride.Profiling;
-using Test.PlayerController;
-using Test.PlayerController.StateMachine;
+using Test.Game_Logic.Player.PlayerController.StateMachines;
 
-namespace Test
+namespace Test.Game_Logic.Player.PlayerController
 {
     public class PlayerContext
     {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Stride.Core.Mathematics;
 
-namespace Test.Game_Logic.Camera
+namespace Test.Game_Logic.Player.CameraController
 {
     public class CameraSettings
     {

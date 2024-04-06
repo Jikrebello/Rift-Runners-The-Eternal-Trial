@@ -1,7 +1,7 @@
 ﻿using Stride.Core.Mathematics;
 using Stride.Engine.Events;
 
-namespace Test.Game_Logic.Camera
+namespace Test.Game_Logic.Player.CameraController
 {
     public class CameraInputReceiver
     {

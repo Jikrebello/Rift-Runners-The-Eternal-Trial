@@ -2,7 +2,7 @@
 using Stride.Engine.Events;
 using Test.Game_Logic.Player.AnimationController;
 
-namespace Test.PlayerController.StateMachine.Combat
+namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Combat
 {
     public class CombatState : IState
     {
@@ -41,14 +41,6 @@ namespace Test.PlayerController.StateMachine.Combat
         public virtual void Update()
         {
             // Logic here
-
-            if (isAiming)
-            {
-                Context.CombatStateMachine.TransitionTo(
-                    new AimingState(),
-                    new Dictionary<string, object> { { "aiming", isAiming } }
-                );
-            }
         }
 
         public virtual void Exit()

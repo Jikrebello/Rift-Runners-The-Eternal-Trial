@@ -2,7 +2,7 @@
 using Stride.Core.Mathematics;
 using Stride.Engine;
 
-namespace Test.Game_Logic.Camera
+namespace Test.Game_Logic.Player.CameraController
 {
     public class CameraOrientation
     {

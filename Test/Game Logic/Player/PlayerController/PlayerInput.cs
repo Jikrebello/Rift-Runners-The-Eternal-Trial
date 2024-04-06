@@ -6,7 +6,7 @@ using Stride.Engine;
 using Stride.Engine.Events;
 using Stride.Input;
 
-namespace Test.PlayerController
+namespace Test.Game_Logic.Player.PlayerController
 {
     public class PlayerInput : SyncScript
     {
