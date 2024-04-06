@@ -303,6 +303,9 @@ Hierarchy:
                         Id: 6395d010-416e-4ffd-b9d2-65a5eded7ab7
                         Model: f68ea240-695a-4de5-9884-60d77544fcd6:Models/mannequinModel
                         Materials: {}
+                    188af471b913a90b610c98e3a76b64e1: !AnimationComponent
+                        Id: 14042ede-02db-4005-885a-14439e65e162
+                        Animations: {}
             Base:
                 BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Prefabs/Player
                 BasePartId: 37081e29-7882-4240-afec-e5318d192cc9
