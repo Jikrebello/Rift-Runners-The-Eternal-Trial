@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Stride.Core.Mathematics;
+using Test.Game_Logic.Player.AnimationController;
 using Test.PlayerController.StateMachine.Combat;
 
 namespace Test.Game_Logic.Player.PlayerController.StateMachine.Combat.CombatSubstates
@@ -18,7 +19,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachine.Combat.CombatSubs
 
         public override void BroadcastAnimationState()
         {
-            base.BroadcastAnimationState();
+            CombatAnimationStateEventKey.Broadcast(CombatAnimationState.Melee);
         }
 
         public override void Update()

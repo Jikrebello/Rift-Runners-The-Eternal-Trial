@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Stride.Core.Mathematics;
+using Test.Game_Logic.Player.AnimationController;
 using Test.Game_Logic.Player.PlayerController.StateMachine.Combat.CombatSubstates;
 
 namespace Test.PlayerController.StateMachine.Combat
@@ -16,6 +17,11 @@ namespace Test.PlayerController.StateMachine.Combat
         {
             // Logic here
             base.HandleInput();
+        }
+
+        public override void BroadcastAnimationState()
+        {
+            CombatAnimationStateEventKey.Broadcast(CombatAnimationState.Aiming);
         }
 
         public override void Update()
