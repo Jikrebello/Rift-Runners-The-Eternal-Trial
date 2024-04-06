@@ -5,4 +5,17 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "<Pending>", Scope = "member", Target = "~M:Test.Game_Logic.Camera.CameraControl.#ctor(Stride.Engine.Events.EventReceiver{Stride.Core.Mathematics.Vector2},Test.Game_Logic.Camera.CameraSettings)")]
+[assembly: SuppressMessage(
+    "Naming",
+    "VSSpell001:Spell Check",
+    Justification = "<Pending>",
+    Scope = "namespace",
+    Target = "~N:Test.Game_Logic.Player.PlayerController.StateMachine.Combat.CombatSubstates"
+)]
+[assembly: SuppressMessage(
+    "Naming",
+    "VSSpell001:Spell Check",
+    Justification = "<Pending>",
+    Scope = "type",
+    Target = "~T:Test.Game_Logic.Player.PlayerController.StateMachine.Combat.CombatSubstates.MeleeState"
+)]

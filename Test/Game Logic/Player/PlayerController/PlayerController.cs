@@ -1,6 +1,7 @@
 ﻿using Stride.Core.Diagnostics;
 using Stride.Engine;
 using Stride.Physics;
+using Test.Game_Logic.Player.PlayerController.StateMachine.Combat.CombatSubstates;
 using Test.PlayerController.StateMachine.Combat;
 using Test.PlayerController.StateMachine.Locomotion;
 
@@ -30,7 +31,7 @@ namespace Test.PlayerController.StateMachine
             // Initialize the State Machines
             _combatStateMachine = new StateMachine(_playerContext);
             _playerContext.CombatStateMachine = _combatStateMachine;
-            _combatStateMachine.TransitionTo(new CombatState());
+            _combatStateMachine.TransitionTo(new MeleeState());
 
             _locomotionStateMachine = new StateMachine(_playerContext);
             _playerContext.LocomotionStateMachine = _locomotionStateMachine;

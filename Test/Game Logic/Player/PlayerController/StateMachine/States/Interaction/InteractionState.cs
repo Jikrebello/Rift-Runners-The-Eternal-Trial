@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Stride.Core.Mathematics;
 
-namespace Test.PlayerController.StateMachine.Airborne
+namespace Test.PlayerController.StateMachine.Interaction
 {
-    public class AirborneState : IState
+    public class InteractionState : IState
     {
         public PlayerContext Context { get; set; }
 
@@ -17,15 +17,15 @@ namespace Test.PlayerController.StateMachine.Airborne
             // Logic here
         }
 
+        public void BroadcastAnimationState()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public virtual void Update()
         {
             // Logic here
-            Context.ScriptComponent.DebugText.Print("In Airborne state", new Int2(350, 350));
-
-            //if(!Context.Character.IsGrounded)
-            //{
-
-            //}
+            Context.ScriptComponent.DebugText.Print("In Interaction state", new Int2(350, 350));
         }
 
         public virtual void Exit()

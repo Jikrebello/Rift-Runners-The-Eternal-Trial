@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Stride.Core.Mathematics;
+using Test.Game_Logic.Player.PlayerController.StateMachine.Combat.CombatSubstates;
 
 namespace Test.PlayerController.StateMachine.Combat
 {
@@ -15,11 +16,6 @@ namespace Test.PlayerController.StateMachine.Combat
         {
             // Logic here
             base.HandleInput();
-
-            if (aimingReceiver.TryReceive(out bool aiming))
-            {
-                isAiming = aiming;
-            }
         }
 
         public override void Update()
@@ -31,7 +27,7 @@ namespace Test.PlayerController.StateMachine.Combat
 
             if (!isAiming)
             {
-                Context.CombatStateMachine.TransitionTo(new CombatState());
+                Context.CombatStateMachine.TransitionTo(new MeleeState());
             }
         }
 

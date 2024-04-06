@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Stride.Core.Mathematics;
 using Stride.Engine.Events;
+using Test.Game_Logic.Player.AnimationController;
 
 namespace Test.PlayerController.StateMachine.Locomotion
 {
@@ -13,6 +14,8 @@ namespace Test.PlayerController.StateMachine.Locomotion
             new("Player Event", "RelativeMovementDirection");
         public static readonly EventKey<float> PlayerSpeedEventKey =
             new("Player Event", "PlayerSpeed");
+        protected EventKey<LocomotionAnimationState> LocomotionAnimationStateEventKey =
+            new("Player Event", "Locomotion Animation State");
 
         protected EventReceiver<bool> aimingReceiver;
         protected EventReceiver<Vector3> inputDirectionReceiver;
@@ -26,8 +29,8 @@ namespace Test.PlayerController.StateMachine.Locomotion
 
         private const float _VELOCITY_SMOOTH_FACTOR = 0.85f;
         private const float _INPUT_RESPONSE_FACTOR = 0.15f;
-        private readonly float normalMoveSpeed = 5;
-        private float currentSpeed;
+        private readonly float _normalMoveSpeed = 5;
+        private float _currentSpeed;
         private float _yawOrientation;
 
         public virtual void Enter(Dictionary<string, object> parameters)
@@ -41,6 +44,11 @@ namespace Test.PlayerController.StateMachine.Locomotion
             }
 
             cameraForwardReceiver = new EventReceiver<Vector3>(PlayerInput.CameraForwardEventKey);
+        }
+
+        public virtual void BroadcastAnimationState()
+        {
+            throw new NotImplementedException();
         }
 
         public virtual void HandleInput()
@@ -95,18 +103,18 @@ namespace Test.PlayerController.StateMachine.Locomotion
             }
             else
             {
-                Context.Character.SetVelocity(moveDirection * normalMoveSpeed);
+                Context.Character.SetVelocity(moveDirection * _normalMoveSpeed);
             }
         }
 
         private void BroadcastPlayerSpeed()
         {
-            currentSpeed = Math.Min(
-                (moveDirection * normalMoveSpeed).Length() / normalMoveSpeed,
+            _currentSpeed = Math.Min(
+                (moveDirection * _normalMoveSpeed).Length() / _normalMoveSpeed,
                 1.0f
             );
 
-            PlayerSpeedEventKey.Broadcast(currentSpeed);
+            PlayerSpeedEventKey.Broadcast(_currentSpeed);
         }
 
         private void HandleAimingOrientation()

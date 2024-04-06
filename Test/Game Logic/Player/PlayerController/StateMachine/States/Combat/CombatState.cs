@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using Stride.Engine.Events;
+using Test.Game_Logic.Player.AnimationController;
 
 namespace Test.PlayerController.StateMachine.Combat
 {
     public class CombatState : IState
     {
         public PlayerContext Context { get; set; }
+
+        protected EventKey<CombatAnimationState> CombatAnimationStateEventKey =
+            new("Player Event", "Combat Animation State");
 
         protected EventReceiver<bool> aimingReceiver;
         protected bool isAiming;
@@ -20,6 +24,11 @@ namespace Test.PlayerController.StateMachine.Combat
             }
         }
 
+        public virtual void BroadcastAnimationState()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public virtual void HandleInput()
         {
             // Logic here
@@ -32,7 +41,6 @@ namespace Test.PlayerController.StateMachine.Combat
         public virtual void Update()
         {
             // Logic here
-            //Context.ScriptComponent.DebugText.Print("In Combat state", new Int2(550, 350));
 
             if (isAiming)
             {

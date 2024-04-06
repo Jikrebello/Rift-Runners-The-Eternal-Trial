@@ -1,15 +1,20 @@
 ﻿using System.Collections.Generic;
 using Stride.Core.Mathematics;
 
-namespace Test.PlayerController.StateMachine.Aquatic
+namespace Test.PlayerController.StateMachine.Airborne
 {
-    public class AquaticState : IState
+    public class AirborneState : IState
     {
         public PlayerContext Context { get; set; }
 
         public virtual void Enter(Dictionary<string, object> parameters)
         {
             // Logic here
+        }
+
+        public virtual void BroadcastAnimationState()
+        {
+            throw new System.NotImplementedException();
         }
 
         public virtual void HandleInput()
@@ -20,7 +25,12 @@ namespace Test.PlayerController.StateMachine.Aquatic
         public virtual void Update()
         {
             // Logic here
-            Context.ScriptComponent.DebugText.Print("In Aquatic state", new Int2(350, 350));
+            Context.ScriptComponent.DebugText.Print("In Airborne state", new Int2(350, 350));
+
+            //if(!Context.Character.IsGrounded)
+            //{
+
+            //}
         }
 
         public virtual void Exit()

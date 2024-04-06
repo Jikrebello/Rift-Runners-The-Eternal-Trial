@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Stride.Core.Mathematics;
+using Test.Game_Logic.Player.AnimationController;
 
 namespace Test.PlayerController.StateMachine.Locomotion
 {
@@ -25,6 +26,11 @@ namespace Test.PlayerController.StateMachine.Locomotion
             {
                 isAiming = aiming;
             }
+        }
+
+        public override void BroadcastAnimationState()
+        {
+            LocomotionAnimationStateEventKey.Broadcast(LocomotionAnimationState.Running);
         }
 
         public override void Update()
