@@ -6,9 +6,9 @@ namespace Test.PlayerController.StateMachine.Locomotion
 {
     public class RunningState : LocomotionState
     {
-        private readonly float forwardsAimingMaxSpeed = 4.5f;
+        private readonly float forwardsAimingSpeed = 4.5f;
         private readonly float horizontalAimingSpeed = 4.8f;
-        private readonly float backwardsAimingMaxSpeed = 3.5f;
+        private readonly float backwardsAimingSpeed = 3.5f;
 
         public override void Enter(Dictionary<string, object> parameters)
         {
@@ -63,34 +63,34 @@ namespace Test.PlayerController.StateMachine.Locomotion
                     && relativeMovementDirection.Z > 0.1f
                 )
                 {
-                    string diagonalDirection = relativeMovementDirection.X > 0 ? "Right" : "Left";
+                    string diagonalDirection = relativeMovementDirection.X > 0 ? "Left" : "Right";
                     Context.ScriptComponent.DebugText.Print(
                         $"Diagonal Strafing {diagonalDirection} Forwards",
                         new Int2(350, 350)
                     );
-                    Context.Character.SetVelocity(moveDirection * forwardsAimingMaxSpeed);
+                    SetCharacterVelocity(forwardsAimingSpeed);
                 }
                 else if (
                     Math.Abs(relativeMovementDirection.X) > 0.1f
                     && relativeMovementDirection.Z < -0.1f
                 )
                 {
-                    string diagonalDirection = relativeMovementDirection.X > 0 ? "Right" : "Left";
+                    string diagonalDirection = relativeMovementDirection.X > 0 ? "Left" : "Right";
                     Context.ScriptComponent.DebugText.Print(
                         $"Diagonal Strafing {diagonalDirection} Backwards",
                         new Int2(350, 350)
                     );
-                    Context.Character.SetVelocity(moveDirection * backwardsAimingMaxSpeed);
+                    SetCharacterVelocity(backwardsAimingSpeed);
                 }
                 else if (Math.Abs(relativeMovementDirection.X) > 0.1f)
                 {
                     string strafeDirectionDescription =
-                        relativeMovementDirection.X > 0 ? "Right" : "Left";
+                        relativeMovementDirection.X > 0 ? "Left" : "Right";
                     Context.ScriptComponent.DebugText.Print(
                         $"Horizontal Strafing {strafeDirectionDescription}",
                         new Int2(350, 350)
                     );
-                    Context.Character.SetVelocity(moveDirection * horizontalAimingSpeed);
+                    SetCharacterVelocity(horizontalAimingSpeed);
                 }
                 else if (relativeMovementDirection.Z > 0.1f)
                 {
@@ -98,7 +98,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
                         "Strafing Forwards",
                         new Int2(350, 350)
                     );
-                    Context.Character.SetVelocity(moveDirection * forwardsAimingMaxSpeed);
+                    SetCharacterVelocity(forwardsAimingSpeed);
                 }
                 else if (relativeMovementDirection.Z < -0.1f)
                 {
@@ -106,7 +106,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
                         "Strafing Backward",
                         new Int2(350, 350)
                     );
-                    Context.Character.SetVelocity(moveDirection * backwardsAimingMaxSpeed);
+                    SetCharacterVelocity(backwardsAimingSpeed);
                 }
             }
             else

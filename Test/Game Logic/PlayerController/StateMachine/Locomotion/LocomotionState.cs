@@ -7,26 +7,27 @@ namespace Test.PlayerController.StateMachine.Locomotion
 {
     public class LocomotionState : IState
     {
+        public PlayerContext Context { get; set; }
+
         public static readonly EventKey<Vector3> RelativeMovementDirectionEventKey =
             new("Player Event", "RelativeMovementDirection");
-        public PlayerContext Context { get; set; }
+        public static readonly EventKey<float> PlayerSpeedEventKey =
+            new("Player Event", "PlayerSpeed");
 
         protected EventReceiver<bool> aimingReceiver;
         protected EventReceiver<Vector3> inputDirectionReceiver;
         protected EventReceiver<Vector3> cameraForwardReceiver;
+
         protected bool isMoving;
         protected bool isAiming;
         protected Vector3 moveDirection = Vector3.Zero;
         protected Vector3 currentMoveDirection = Vector3.Zero;
-        protected float maxSpeed = 5;
         protected Vector3 relativeMovementDirection;
 
-        // Controls smoothing of the movement velocity.
         private const float _VELOCITY_SMOOTH_FACTOR = 0.85f;
-
-        // Controls how responsive the movement is to input changes.
         private const float _INPUT_RESPONSE_FACTOR = 0.15f;
-
+        private readonly float normalMoveSpeed = 5;
+        private float currentSpeed;
         private float _yawOrientation;
 
         public virtual void Enter(Dictionary<string, object> parameters)
@@ -58,7 +59,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
 
         public virtual void Update()
         {
-            AdjustPlayerVelocityBasedOnInput();
+            CalculateMovementDirection();
 
             if (isAiming)
             {
@@ -68,6 +69,10 @@ namespace Test.PlayerController.StateMachine.Locomotion
             {
                 UpdatePlayerRotationBasedOnMovement();
             }
+
+            SetCharacterVelocity();
+
+            BroadcastPlayerSpeed();
         }
 
         public virtual void Exit()
@@ -75,15 +80,36 @@ namespace Test.PlayerController.StateMachine.Locomotion
             // Logic here
         }
 
-        protected void AdjustPlayerVelocityBasedOnInput()
+        private void CalculateMovementDirection()
         {
             moveDirection =
                 moveDirection * _VELOCITY_SMOOTH_FACTOR
                 + currentMoveDirection * _INPUT_RESPONSE_FACTOR;
-            Context.Character.SetVelocity(moveDirection * maxSpeed);
         }
 
-        protected void HandleAimingOrientation()
+        protected void SetCharacterVelocity(float variableSpeed = 0f)
+        {
+            if (variableSpeed > 0f)
+            {
+                Context.Character.SetVelocity(moveDirection * variableSpeed);
+            }
+            else
+            {
+                Context.Character.SetVelocity(moveDirection * normalMoveSpeed);
+            }
+        }
+
+        private void BroadcastPlayerSpeed()
+        {
+            currentSpeed = Math.Min(
+                (moveDirection * normalMoveSpeed).Length() / normalMoveSpeed,
+                1.0f
+            );
+
+            PlayerSpeedEventKey.Broadcast(currentSpeed);
+        }
+
+        private void HandleAimingOrientation()
         {
             if (cameraForwardReceiver.TryReceive(out Vector3 cameraForward))
             {
@@ -107,7 +133,7 @@ namespace Test.PlayerController.StateMachine.Locomotion
             }
         }
 
-        protected void UpdatePlayerRotationBasedOnMovement()
+        private void UpdatePlayerRotationBasedOnMovement()
         {
             if (moveDirection.LengthSquared() > float.Epsilon)
             {
