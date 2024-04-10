@@ -6,6 +6,7 @@ ChildrenIds: []
 Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
     RootParts:
+        - ref!! 90a0f198-66d8-48b5-b7f2-e025acd3b53e
         - ref!! 255ffa89-0602-477a-bef7-4bda7efb384c
         - ref!! 38d6927a-8670-44c7-be86-9fd6ce75d658
         - ref!! a792ae8c-656e-4480-ae07-8532226e03c9
@@ -13,9 +14,8 @@ Hierarchy:
         - ref!! a50db102-5c87-4e6b-8f8d-a7559f2b4752
         - ref!! 7da6f860-9736-40f1-9398-077302111bf7
         - ref!! 5fcb1b8a-7be4-4000-a2c1-c275d4ac2096
-        - ref!! 90a0f198-66d8-48b5-b7f2-e025acd3b53e
     Parts:
-        -   Folder: null
+        -   Folder: World
             Entity:
                 Id: 222352e6-551c-49df-be6d-101e5455631a
                 Name: Cylinder
@@ -45,7 +45,8 @@ Hierarchy:
                             b868ecab85de6a0a3a3972b7377227f8: !CylinderColliderShapeDesc
                                 LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
                                 LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-        -   Entity:
+        -   Folder: World
+            Entity:
                 Id: 255ffa89-0602-477a-bef7-4bda7efb384c
                 Name: Directional light
                 Components:
@@ -70,7 +71,8 @@ Hierarchy:
                                 ComputeTransmittance: false
                                 BiasParameters: {}
                         Intensity: 20.0
-        -   Entity:
+        -   Folder: World
+            Entity:
                 Id: 38d6927a-8670-44c7-be86-9fd6ce75d658
                 Name: Skybox
                 Components:
@@ -87,7 +89,8 @@ Hierarchy:
                         Id: 4b50efb7-1c1a-49f2-ae6b-a4d21176fa7b
                         Type: !LightSkybox
                             Skybox: 56cf27ab-db3a-4073-b6a6-ba247e0190e2:Skybox
-        -   Entity:
+        -   Folder: World
+            Entity:
                 Id: 5fcb1b8a-7be4-4000-a2c1-c275d4ac2096
                 Name: Ground
                 Components:
@@ -117,7 +120,7 @@ Hierarchy:
                                 Size: {X: 10.0, Y: 0.01, Z: 10.0}
                                 LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
                                 LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-        -   Folder: null
+        -   Folder: World
             Entity:
                 Id: 7da6f860-9736-40f1-9398-077302111bf7
                 Name: Cylinder
@@ -175,7 +178,7 @@ Hierarchy:
                 Components:
                     22f83ea01153c208c93b918d5ee8a16a: !TransformComponent
                         Id: d7499337-97f7-49d4-88b3-a18c8ac6265c
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Position*: {X: 0.0, Y: 1.1240997, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:
@@ -230,7 +233,7 @@ Hierarchy:
                 BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Prefabs/Player
                 BasePartId: f5dab1e1-b3bd-4118-b771-e55a108f4a1d
                 InstanceId: 01c1b277-0ef8-4287-a247-6d75f3cca8fe
-        -   Folder: null
+        -   Folder: World
             Entity:
                 Id: a50db102-5c87-4e6b-8f8d-a7559f2b4752
                 Name: Cylinder
@@ -260,7 +263,8 @@ Hierarchy:
                             5925e48b517f641103f717a4845eacb3: !CylinderColliderShapeDesc
                                 LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
                                 LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-        -   Entity:
+        -   Folder: World
+            Entity:
                 Id: a792ae8c-656e-4480-ae07-8532226e03c9
                 Name: Cylinder
                 Components:
@@ -295,7 +299,7 @@ Hierarchy:
                 Components:
                     f1a64b301b9540b41e23a3a4e8efb789: !TransformComponent
                         Id: ea5cb052-af63-461d-a6c5-8f6f90d73598
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Position: {X: 0.0, Y: 0.04892068, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}

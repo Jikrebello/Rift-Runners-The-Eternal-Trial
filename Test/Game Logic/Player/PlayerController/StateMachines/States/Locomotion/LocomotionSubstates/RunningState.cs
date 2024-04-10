@@ -13,30 +13,18 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         public override void Enter(Dictionary<string, object> parameters)
         {
-            // Logic here
             base.Enter(parameters);
         }
 
         public override void HandleInput()
         {
-            // Logic here
             base.HandleInput();
-
-            if (aimingReceiver.TryReceive(out bool aiming))
-            {
-                isAiming = aiming;
-            }
-        }
-
-        public override void BroadcastAnimationState()
-        {
-            LocomotionAnimationStateEventKey.Broadcast(LocomotionAnimationState.Running);
         }
 
         public override void Update()
         {
-            // Logic here
             base.Update();
+
             Context.ScriptComponent.DebugText.Print("In Running state", new Int2(350, 450));
 
             ShouldMoveToIdle(currentMoveDirection.LengthSquared() <= float.Epsilon);
@@ -46,12 +34,17 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         public override void Exit()
         {
-            // Logic here
+            base.Exit();
         }
 
-        private void ShouldMoveToIdle(bool isCurrentMoveDirectionGreaterThanZero)
+        public override void BroadcastAnimationState()
         {
-            if (isCurrentMoveDirectionGreaterThanZero)
+            LocomotionAnimationStateEventKey.Broadcast(LocomotionAnimationState.Running);
+        }
+
+        private void ShouldMoveToIdle(bool isMoving)
+        {
+            if (isMoving)
             {
                 Context.LocomotionStateMachine.TransitionTo(
                     new IdleState(),

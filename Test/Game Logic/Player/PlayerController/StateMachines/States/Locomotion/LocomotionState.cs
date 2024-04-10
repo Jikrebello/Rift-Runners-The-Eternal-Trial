@@ -29,7 +29,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
         private const float _VELOCITY_SMOOTH_FACTOR = 0.85f;
         private const float _INPUT_RESPONSE_FACTOR = 0.15f;
         private readonly float _normalMoveSpeed = 6;
-        private bool _isMoving;
+        protected bool _isMoving;
         private float _effectiveSpeed;
         private float _currentSpeed;
         private float _yawOrientation;
@@ -45,11 +45,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
             }
 
             cameraForwardReceiver = new EventReceiver<Vector3>(PlayerInput.CameraForwardEventKey);
-        }
-
-        public virtual void BroadcastAnimationState()
-        {
-            throw new NotImplementedException();
         }
 
         public virtual void HandleInput()
@@ -82,10 +77,9 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
             SetCharacterVelocity();
         }
 
-        public virtual void Exit()
-        {
-            // Logic here
-        }
+        public virtual void Exit() { }
+
+        public virtual void BroadcastAnimationState() { }
 
         private void CalculateMovementDirection()
         {

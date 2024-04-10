@@ -50,7 +50,7 @@ namespace Test.Game_Logic.Player.AnimationsController
 
         public void Update(GameTime gameTime)
         {
-            // Calculate the running speed and update walkLerpFactor accordingly
+            // Receive the runSpeed normalized float and update _blendFactorBetweenSpeeds accordingly
             _playerSpeedEventReceiver.TryReceive(out float runSpeed);
 
             if (runSpeed < _walkThreshold)
@@ -82,6 +82,7 @@ namespace Test.Game_Logic.Player.AnimationsController
                     _clipForHigherSpeed.Duration.Ticks,
                     _blendFactorBetweenSpeeds
                 );
+
             var currentTicks = TimeSpan.FromTicks(
                 (long)(_controller.CurrentTime * _blendedMaxDuration)
             );
@@ -89,6 +90,7 @@ namespace Test.Game_Logic.Player.AnimationsController
                 (currentTicks.Ticks + (long)(gameTime.Elapsed.Ticks * _controller.TimeFactor))
                     % _blendedMaxDuration
             );
+
             _controller.CurrentTime = (double)currentTicks.Ticks / _blendedMaxDuration;
         }
 
@@ -100,12 +102,14 @@ namespace Test.Game_Logic.Player.AnimationsController
                     TimeSpan.FromTicks((long)(currentTime * _clipForLowerSpeed.Duration.Ticks))
                 )
             );
+
             blendStack.Add(
                 AnimationOperation.NewPush(
                     _evaluatorForHigherSpeed,
                     TimeSpan.FromTicks((long)(currentTime * _clipForHigherSpeed.Duration.Ticks))
                 )
             );
+
             blendStack.Add(
                 AnimationOperation.NewBlend(CoreAnimationOperation.Blend, _blendFactorBetweenSpeeds)
             );

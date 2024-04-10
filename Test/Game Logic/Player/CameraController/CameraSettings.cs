@@ -8,8 +8,8 @@ namespace Test.Game_Logic.Player.CameraController
 {
     public class CameraSettings
     {
-        public static float MinVerticalAngle { get; set; } = -10f;
-        public static float MaxVerticalAngle { get; set; } = 70f;
+        public static float MinVerticalAngle { get; set; } = -18f;
+        public static float MaxVerticalAngle { get; set; } = 80f;
 
         public static float VerticalSpeed { get; set; }
         public static float RotationSpeed { get; set; }

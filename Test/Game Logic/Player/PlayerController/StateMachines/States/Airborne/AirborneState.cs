@@ -12,11 +12,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne
             // Logic here
         }
 
-        public virtual void BroadcastAnimationState()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public virtual void HandleInput()
         {
             // Logic here
@@ -26,16 +21,13 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne
         {
             // Logic here
             Context.ScriptComponent.DebugText.Print("In Airborne state", new Int2(350, 350));
-
-            //if(!Context.Character.IsGrounded)
-            //{
-
-            //}
         }
 
         public virtual void Exit()
         {
             // Logic here
         }
+
+        public virtual void BroadcastAnimationState() { }
     }
 }

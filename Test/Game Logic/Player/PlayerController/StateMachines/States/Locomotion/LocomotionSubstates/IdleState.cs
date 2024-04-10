@@ -8,19 +8,28 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
     {
         public override void Enter(Dictionary<string, object> parameters)
         {
-            // Logic here
             base.Enter(parameters);
         }
 
         public override void HandleInput()
         {
-            // Logic here
             base.HandleInput();
+        }
 
-            if (aimingReceiver.TryReceive(out bool aiming))
-            {
-                isAiming = aiming;
-            }
+        public override void Update()
+        {
+            base.Update();
+
+            Context.ScriptComponent.DebugText.Print("In Idle state", new Int2(350, 450));
+
+            ShouldMoveToRunning(currentMoveDirection.LengthSquared() > float.Epsilon);
+
+            HandleAiming();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
         }
 
         public override void BroadcastAnimationState()
@@ -28,20 +37,19 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
             LocomotionAnimationStateEventKey.Broadcast(LocomotionAnimationState.Idle);
         }
 
-        public override void Update()
+        private void ShouldMoveToRunning(bool isntMoving)
         {
-            // Logic here
-            base.Update();
-            Context.ScriptComponent.DebugText.Print("In Idle state", new Int2(350, 450));
-
-            if (currentMoveDirection.LengthSquared() > float.Epsilon)
+            if (isntMoving)
             {
                 Context.LocomotionStateMachine.TransitionTo(
                     new RunningState(),
                     new Dictionary<string, object> { { "aiming", isAiming } }
                 );
             }
+        }
 
+        private void HandleAiming()
+        {
             if (isAiming)
             {
                 Context.ScriptComponent.DebugText.Print("Strafe Idle", new Int2(350, 350));
@@ -50,11 +58,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
             {
                 Context.ScriptComponent.DebugText.Print("Normal Idle", new Int2(350, 350));
             }
-        }
-
-        public override void Exit()
-        {
-            // Logic here
         }
     }
 }
