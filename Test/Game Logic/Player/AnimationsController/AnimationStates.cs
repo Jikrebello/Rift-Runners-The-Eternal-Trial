@@ -1,14 +1,14 @@
-﻿namespace Test.Game_Logic.Player.AnimationController
+﻿namespace Test.Game_Logic.Player.AnimationsController
 {
     public enum LocomotionAnimationState
     {
         Idle,
-        Running
+        Running,
     }
 
     public enum CombatAnimationState
     {
+        Melee,
         Aiming,
-        Melee
     }
 }

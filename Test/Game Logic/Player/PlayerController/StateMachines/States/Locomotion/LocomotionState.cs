@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Stride.Core.Mathematics;
 using Stride.Engine.Events;
-using Test.Game_Logic.Player.AnimationController;
+using Test.Game_Logic.Player.AnimationsController;
 
 namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotion
 {
@@ -21,7 +21,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
         protected EventReceiver<Vector3> inputDirectionReceiver;
         protected EventReceiver<Vector3> cameraForwardReceiver;
 
-        protected bool isMoving;
         protected bool isAiming;
         protected Vector3 moveDirection = Vector3.Zero;
         protected Vector3 currentMoveDirection = Vector3.Zero;
@@ -29,7 +28,9 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         private const float _VELOCITY_SMOOTH_FACTOR = 0.85f;
         private const float _INPUT_RESPONSE_FACTOR = 0.15f;
-        private readonly float _normalMoveSpeed = 5;
+        private readonly float _normalMoveSpeed = 6;
+        private bool _isMoving;
+        private float _effectiveSpeed;
         private float _currentSpeed;
         private float _yawOrientation;
 
@@ -79,8 +80,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
             }
 
             SetCharacterVelocity();
-
-            BroadcastPlayerSpeed();
         }
 
         public virtual void Exit()
@@ -97,22 +96,28 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         protected void SetCharacterVelocity(float variableSpeed = 0f)
         {
-            if (variableSpeed > 0f)
+            // Determine the effective move speed.
+            _effectiveSpeed = variableSpeed > 0f ? variableSpeed : _normalMoveSpeed;
+
+            // Set the character's velocity based on the effective move speed.
+            Context.Character.SetVelocity(moveDirection * _effectiveSpeed);
+
+            // Update the current speed for broadcasting.
+            UpdateAndBroadcastPlayerSpeed(_effectiveSpeed);
+        }
+
+        private void UpdateAndBroadcastPlayerSpeed(float effectiveSpeed)
+        {
+            _isMoving = moveDirection != Vector3.Zero;
+
+            if (_isMoving)
             {
-                Context.Character.SetVelocity(moveDirection * variableSpeed);
+                _currentSpeed = Math.Min(effectiveSpeed / _normalMoveSpeed, 1.0f);
             }
             else
             {
-                Context.Character.SetVelocity(moveDirection * _normalMoveSpeed);
+                _currentSpeed = 0.0f;
             }
-        }
-
-        private void BroadcastPlayerSpeed()
-        {
-            _currentSpeed = Math.Min(
-                (moveDirection * _normalMoveSpeed).Length() / _normalMoveSpeed,
-                1.0f
-            );
 
             PlayerSpeedEventKey.Broadcast(_currentSpeed);
         }

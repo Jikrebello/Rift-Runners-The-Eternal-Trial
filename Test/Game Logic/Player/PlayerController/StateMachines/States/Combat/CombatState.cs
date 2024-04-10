@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Stride.Engine.Events;
-using Test.Game_Logic.Player.AnimationController;
+using Test.Game_Logic.Player.AnimationsController;
 
 namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Combat
 {
