@@ -2,10 +2,7 @@
 using Stride.Animations;
 using Stride.Core;
 using Stride.Core.Collections;
-using Stride.Core.Mathematics;
 using Stride.Engine;
-using Stride.Engine.Events;
-using Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotion;
 
 namespace Test.Game_Logic.Player.AnimationsController
 {

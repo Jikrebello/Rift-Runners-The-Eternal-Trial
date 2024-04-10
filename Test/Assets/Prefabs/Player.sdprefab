@@ -83,8 +83,7 @@ Hierarchy:
                         Id: 68fc3e98-4574-4b86-827b-cc3d59340fe3
                         MouseSensitivity: 1.0
                         PlayerCamera: ref!! 2676cfee-da73-40e2-b3c5-126fc8aa89e3
-                        MoveUpKeys:
-                            a04b0fcf5c590b417022ea718b523939: None
+                        MoveUpKeys: {}
                         MoveLeftKeys: {}
                         MoveDownKeys: {}
                         MoveRightKeys: {}
