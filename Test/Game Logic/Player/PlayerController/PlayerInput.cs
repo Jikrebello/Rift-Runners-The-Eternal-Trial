@@ -17,18 +17,23 @@ namespace Test.Game_Logic.Player.PlayerController
         public static readonly EventKey<bool> AimingEventKey = new("Player Event", "Aiming");
         public static readonly EventKey<Vector3> CameraForwardEventKey =
             new("Camera Events", "Camera Forward");
+        public static readonly EventKey<bool> PlayerJumpEventKey = new("Player Event", "Jumping");
 
         public CameraComponent PlayerCamera { get; set; }
         public float MouseSensitivity = 1f;
+
         public List<Keys> MoveUpKeys { get; } = [];
         public List<Keys> MoveLeftKeys { get; } = [];
         public List<Keys> MoveDownKeys { get; } = [];
         public List<Keys> MoveRightKeys { get; } = [];
         public List<MouseButton> AimButtons { get; set; } = [];
+        public List<Keys> JumpKeys { get; } = [];
 
         private Vector2 _inputMovementDirection = Vector2.Zero;
         private Vector3 _worldMovementDirection = Vector3.Zero;
         private Vector2 _cameraRotationInput = Vector2.Zero;
+
+        public bool _wasJumpKeyPressedLastFrame = false;
 
         public override void Start()
         {
@@ -44,36 +49,20 @@ namespace Test.Game_Logic.Player.PlayerController
             MoveRightKeys.Add(Keys.D);
 
             AimButtons.Add(MouseButton.Right);
+
+            JumpKeys.Add(Keys.Space);
         }
 
         public override void Update()
         {
             HandleCameraMovement();
 
-            HandleCameraAiming();
+            BroadcastPlayerAimingEventKey();
 
             BroadcastCameraForwardDirection();
-        }
 
-        #region Camera Aiming
-        private void HandleCameraAiming()
-        {
-            if (AimButtons.Any(Input.IsMouseButtonDown))
-            {
-                OnAimEventKeyHandler(true);
-            }
-            else
-            {
-                OnAimEventKeyHandler(false);
-            }
+            BroadcastPlayerJumpEventKey();
         }
-
-        private static void OnAimEventKeyHandler(bool IsAiming)
-        {
-            AimingEventKey.Broadcast(IsAiming);
-        }
-        #endregion
-
 
         #region Camera Movement
         private void HandleCameraMovement()
@@ -99,6 +88,7 @@ namespace Test.Game_Logic.Player.PlayerController
             _worldMovementDirection = ConvertInputMovementDirectionToWorldMovementDirection(
                 _inputMovementDirection
             );
+
             MovementEventKey.Broadcast(_worldMovementDirection);
         }
 
@@ -132,6 +122,7 @@ namespace Test.Game_Logic.Player.PlayerController
         {
             _cameraRotationInput =
                 new Vector2(Input.MouseDelta.X, -Input.MouseDelta.Y) * MouseSensitivity;
+
             CameraRotateEventKey.Broadcast(_cameraRotationInput);
         }
 
@@ -150,13 +141,37 @@ namespace Test.Game_Logic.Player.PlayerController
         }
         #endregion
 
+        private void BroadcastPlayerAimingEventKey()
+        {
+            if (AimButtons.Any(Input.IsMouseButtonDown))
+            {
+                AimingEventKey.Broadcast(true);
+            }
+            else
+            {
+                AimingEventKey.Broadcast(false);
+            }
+        }
+
         private void BroadcastCameraForwardDirection()
         {
             if (PlayerCamera != null)
             {
                 var cameraForward = PlayerCamera.Entity.Transform.WorldMatrix.Forward;
+
                 CameraForwardEventKey.Broadcast(cameraForward);
             }
+        }
+
+        private void BroadcastPlayerJumpEventKey()
+        {
+            bool isJumpKeyPressedNow = JumpKeys.Any(Input.IsKeyDown);
+
+            if (isJumpKeyPressedNow && !_wasJumpKeyPressedLastFrame)
+            {
+                PlayerJumpEventKey.Broadcast(true);
+            }
+            _wasJumpKeyPressedLastFrame = isJumpKeyPressedNow;
         }
     }
 }

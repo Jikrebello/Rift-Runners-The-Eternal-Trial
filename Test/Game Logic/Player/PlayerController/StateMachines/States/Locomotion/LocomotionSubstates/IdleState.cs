@@ -20,7 +20,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
         {
             base.Update();
 
-            Context.ScriptComponent.DebugText.Print("In Idle state", new Int2(350, 450));
+            Context.DebugText.Print("In Idle state", new Int2(350, 450));
 
             ShouldMoveToRunning(currentMoveDirection.LengthSquared() > float.Epsilon);
 
@@ -52,11 +52,11 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
         {
             if (isAiming)
             {
-                Context.ScriptComponent.DebugText.Print("Strafe Idle", new Int2(350, 350));
+                Context.DebugText.Print("Strafe Idle", new Int2(350, 350));
             }
             else
             {
-                Context.ScriptComponent.DebugText.Print("Normal Idle", new Int2(350, 350));
+                Context.DebugText.Print("Normal Idle", new Int2(350, 350));
             }
         }
     }

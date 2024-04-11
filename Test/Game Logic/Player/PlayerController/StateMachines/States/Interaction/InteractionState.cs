@@ -25,7 +25,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Interacti
         public virtual void Update()
         {
             // Logic here
-            Context.ScriptComponent.DebugText.Print("In Interaction state", new Int2(350, 350));
+            Context.DebugText.Print("In Interaction state", new Int2(350, 350));
         }
 
         public virtual void Exit()

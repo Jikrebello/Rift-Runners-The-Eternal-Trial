@@ -13,7 +13,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Aquatic.A
         public override void Update()
         {
             base.Update(); // Logic here
-            Context.ScriptComponent.DebugText.Print("In Underwater state", new Int2(350, 450));
+            Context.DebugText.Print("In Underwater state", new Int2(350, 450));
         }
 
         public override void Exit()

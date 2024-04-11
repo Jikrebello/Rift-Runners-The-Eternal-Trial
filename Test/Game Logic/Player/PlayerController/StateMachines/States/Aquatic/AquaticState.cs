@@ -25,7 +25,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Aquatic
         public virtual void Update()
         {
             // Logic here
-            Context.ScriptComponent.DebugText.Print("In Aquatic state", new Int2(350, 350));
+            Context.DebugText.Print("In Aquatic state", new Int2(350, 350));
         }
 
         public virtual void Exit()

@@ -72,7 +72,7 @@ Hierarchy:
                         FallSpeed: 10.0
                         MaxSlope: {Radians: 0.7853982}
                         JumpSpeed: 5.0
-                        Gravity: {X: 0.0, Y: -10.0, Z: 0.0}
+                        Gravity: {X: 0.0, Y: -20.0, Z: 0.0}
                         ColliderShapes:
                             4bce09d191372aaeff4b45ad43363342: !CapsuleColliderShapeDesc
                                 Length: 1.5
@@ -88,6 +88,7 @@ Hierarchy:
                         MoveDownKeys: {}
                         MoveRightKeys: {}
                         AimButtons: {}
+                        JumpKeys: {}
                     42ad5ce945e3056cdda67c32e7c16d81: !Test.Game_Logic.Player.PlayerController.PlayerController,Test
                         Id: bdbf7256-a063-4d9d-b523-89ffaf3e32c8
         -   Entity:

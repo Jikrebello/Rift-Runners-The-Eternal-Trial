@@ -1,8 +1,5 @@
 ﻿using Stride.Core.Diagnostics;
 using Stride.Engine;
-using Stride.Engine.Events;
-using Stride.Games;
-using Stride.Input;
 using Stride.Physics;
 using Stride.Profiling;
 using Test.Game_Logic.Player.PlayerController.StateMachines;
@@ -13,23 +10,15 @@ namespace Test.Game_Logic.Player.PlayerController
     {
         // Stride Specific
         public ScriptComponent ScriptComponent { get; set; }
-        public IGame Game { get; set; }
-
         public DebugTextSystem DebugText { get; set; }
-
         public Logger Log { get; set; }
         public CharacterComponent Character { get; set; }
-        public InputManager Input { get; set; }
-
         public Entity Model { get; set; }
-
-        public PlayerInput PlayerInput { get; set; }
+        public double DeltaTime { get; set; }
 
         // State Machines
         public StateMachine CombatStateMachine { get; set; }
         public StateMachine LocomotionStateMachine { get; set; }
-
-        // Event Receivers
-        public EventReceiver<bool> AimingReceiver { get; set; }
+        public StateMachine AirborneStateMachine { get; set; }
     }
 }

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Stride.Core.Mathematics;
 
 namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.AirborneSubstates
 {
-    public class GroundState : AirborneState
+    public class GroundedState : AirborneState
     {
         public override void Enter(Dictionary<string, object> parameters)
         {
@@ -22,7 +18,19 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.
         public override void Update()
         {
             base.Update(); // Logic here
-            Context.ScriptComponent.DebugText.Print("In Ground state", new Int2(350, 450));
+            Context.DebugText.Print("In Grounded state", new Int2(350, 320));
+
+            if (!isGrounded)
+            {
+                Context.AirborneStateMachine.TransitionTo(
+                    new FallingState(),
+                    new Dictionary<string, object>
+                    {
+                        { "currentAirJumps", currentAirJumps },
+                        { "timeSinceLastJump", timeSinceLastJump }
+                    }
+                );
+            }
         }
 
         public override void Exit()

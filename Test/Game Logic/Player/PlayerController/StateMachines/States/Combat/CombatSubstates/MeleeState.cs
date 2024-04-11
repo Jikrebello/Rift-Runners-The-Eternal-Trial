@@ -25,7 +25,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Combat.Co
         {
             base.Update();
 
-            Context.ScriptComponent.DebugText.Print("In Melee state", new Int2(550, 450));
+            Context.DebugText.Print("In Melee state", new Int2(550, 450));
 
             if (isAiming)
             {

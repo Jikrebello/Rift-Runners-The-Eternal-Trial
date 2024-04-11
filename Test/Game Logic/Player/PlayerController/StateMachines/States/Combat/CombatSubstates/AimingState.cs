@@ -28,7 +28,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Combat.Co
             // Logic here
             base.Update();
 
-            Context.ScriptComponent.DebugText.Print("In Aiming state", new Int2(550, 450));
+            Context.DebugText.Print("In Aiming state", new Int2(550, 450));
 
             if (!isAiming)
             {

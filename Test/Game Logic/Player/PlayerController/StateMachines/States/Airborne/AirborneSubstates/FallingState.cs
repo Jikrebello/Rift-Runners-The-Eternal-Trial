@@ -3,7 +3,7 @@ using Stride.Core.Mathematics;
 
 namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.AirborneSubstates
 {
-    public class FallState : AirborneState
+    public class FallingState : AirborneState
     {
         public override void Enter(Dictionary<string, object> parameters)
         {
@@ -18,7 +18,19 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.
         public override void Update()
         {
             base.Update(); // Logic here
-            Context.ScriptComponent.DebugText.Print("In Fall state", new Int2(350, 450));
+            Context.DebugText.Print("In Falling state", new Int2(350, 320));
+
+            if (isGrounded)
+            {
+                Context.AirborneStateMachine.TransitionTo(
+                    new GroundedState(),
+                    new Dictionary<string, object>
+                    {
+                        { "currentAirJumps", currentAirJumps },
+                        { "timeSinceLastJump", timeSinceLastJump }
+                    }
+                );
+            }
         }
 
         public override void Exit()

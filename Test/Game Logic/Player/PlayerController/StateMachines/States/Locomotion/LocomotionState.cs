@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Stride.Core.Mathematics;
 using Stride.Engine.Events;
 using Test.Game_Logic.Player.AnimationsController;
+using Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne;
 
 namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotion
 {
@@ -17,39 +18,43 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
         protected EventKey<LocomotionAnimationState> LocomotionAnimationStateEventKey =
             new("Player Event", "Locomotion Animation State");
 
-        protected EventReceiver<bool> aimingReceiver;
-        protected EventReceiver<Vector3> inputDirectionReceiver;
-        protected EventReceiver<Vector3> cameraForwardReceiver;
-
-        protected bool isAiming;
-        protected Vector3 moveDirection = Vector3.Zero;
         protected Vector3 currentMoveDirection = Vector3.Zero;
         protected Vector3 relativeMovementDirection;
+        protected bool isAiming;
+        protected bool isFalling;
+
+        private EventReceiver<Vector3> _inputDirectionReceiver;
+        private EventReceiver<bool> _aimingReceiver;
+        private EventReceiver<Vector3> _cameraForwardReceiver;
+        private EventReceiver<bool> _isFallingReceiver;
+
+        private Vector3 _moveDirection = Vector3.Zero;
 
         private const float _VELOCITY_SMOOTH_FACTOR = 0.85f;
         private const float _INPUT_RESPONSE_FACTOR = 0.15f;
         private readonly float _normalMoveSpeed = 6;
-        protected bool _isMoving;
+
+        private bool _isMoving;
         private float _effectiveSpeed;
         private float _currentSpeed;
         private float _yawOrientation;
 
         public virtual void Enter(Dictionary<string, object> parameters)
         {
-            inputDirectionReceiver = new EventReceiver<Vector3>(PlayerInput.MovementEventKey);
-
-            aimingReceiver = new EventReceiver<bool>(PlayerInput.AimingEventKey);
             if (parameters != null)
             {
                 isAiming = (bool)parameters["aiming"];
             }
 
-            cameraForwardReceiver = new EventReceiver<Vector3>(PlayerInput.CameraForwardEventKey);
+            _inputDirectionReceiver = new EventReceiver<Vector3>(PlayerInput.MovementEventKey);
+            _cameraForwardReceiver = new EventReceiver<Vector3>(PlayerInput.CameraForwardEventKey);
+            _aimingReceiver = new EventReceiver<bool>(PlayerInput.AimingEventKey);
+            _isFallingReceiver = new EventReceiver<bool>(AirborneState.PlayerFallingEventKey);
         }
 
         public virtual void HandleInput()
         {
-            if (inputDirectionReceiver.TryReceive(out Vector3 inputDirection))
+            if (_inputDirectionReceiver.TryReceive(out Vector3 inputDirection))
             {
                 currentMoveDirection = inputDirection;
             }
@@ -58,7 +63,8 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
                 currentMoveDirection = Vector3.Zero;
             }
 
-            aimingReceiver.TryReceive(out isAiming);
+            _aimingReceiver.TryReceive(out isAiming);
+            _isFallingReceiver.TryReceive(out isFalling);
         }
 
         public virtual void Update()
@@ -83,8 +89,8 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         private void CalculateMovementDirection()
         {
-            moveDirection =
-                moveDirection * _VELOCITY_SMOOTH_FACTOR
+            _moveDirection =
+                _moveDirection * _VELOCITY_SMOOTH_FACTOR
                 + currentMoveDirection * _INPUT_RESPONSE_FACTOR;
         }
 
@@ -94,7 +100,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
             _effectiveSpeed = variableSpeed > 0f ? variableSpeed : _normalMoveSpeed;
 
             // Set the character's velocity based on the effective move speed.
-            Context.Character.SetVelocity(moveDirection * _effectiveSpeed);
+            Context.Character.SetVelocity(_moveDirection * _effectiveSpeed);
 
             // Update the current speed for broadcasting.
             UpdateAndBroadcastPlayerSpeed(_effectiveSpeed);
@@ -102,7 +108,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         private void UpdateAndBroadcastPlayerSpeed(float effectiveSpeed)
         {
-            _isMoving = moveDirection != Vector3.Zero;
+            _isMoving = _moveDirection != Vector3.Zero;
 
             if (_isMoving)
             {
@@ -118,7 +124,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         private void HandleAimingOrientation()
         {
-            if (cameraForwardReceiver.TryReceive(out Vector3 cameraForward))
+            if (_cameraForwardReceiver.TryReceive(out Vector3 cameraForward))
             {
                 // Normalize and adjust camera forward direction if necessary
                 cameraForward.Y = 0;
@@ -142,10 +148,10 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         private void UpdatePlayerRotationBasedOnMovement()
         {
-            if (moveDirection.LengthSquared() > float.Epsilon)
+            if (_moveDirection.LengthSquared() > float.Epsilon)
             {
                 _yawOrientation = MathUtil.RadiansToDegrees(
-                    (float)Math.Atan2(-moveDirection.Z, moveDirection.X) + MathUtil.PiOverTwo
+                    (float)Math.Atan2(-_moveDirection.Z, _moveDirection.X) + MathUtil.PiOverTwo
                 );
 
                 Context.Model.Transform.Rotation = Quaternion.RotationYawPitchRoll(
