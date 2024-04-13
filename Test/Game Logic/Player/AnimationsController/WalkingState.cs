@@ -48,7 +48,7 @@ namespace Test.Game_Logic.Player.AnimationsController
             _clipForHigherSpeed = _controller.AnimationWalk;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime drawTime)
         {
             // Receive the runSpeed normalized float and update _blendFactorBetweenSpeeds accordingly
             _playerSpeedEventReceiver.TryReceive(out float runSpeed);
@@ -87,7 +87,7 @@ namespace Test.Game_Logic.Player.AnimationsController
                 (long)(_controller.CurrentTime * _blendedMaxDuration)
             );
             currentTicks = TimeSpan.FromTicks(
-                (currentTicks.Ticks + (long)(gameTime.Elapsed.Ticks * _controller.TimeFactor))
+                (currentTicks.Ticks + (long)(drawTime.Elapsed.Ticks * _controller.TimeFactor))
                     % _blendedMaxDuration
             );
 

@@ -21,6 +21,15 @@ namespace Test.Game_Logic.Player.AnimationsController
         [Display("Run")]
         public AnimationClip AnimationRun { get; set; }
 
+        [Display("Jump")]
+        public AnimationClip AnimationJump { get; set; }
+
+        [Display("Airborne")]
+        public AnimationClip AnimationAirborne { get; set; }
+
+        [Display("Landing")]
+        public AnimationClip AnimationLanding { get; set; }
+
         [Display("Time Scale")]
         public double TimeFactor { get; set; } = 1;
 
@@ -29,7 +38,8 @@ namespace Test.Game_Logic.Player.AnimationsController
         private IAnimationState _currentState;
 
         // --- States ---
-        private WalkingState _walkingState;
+        public WalkingState WalkingState;
+        public JumpingState JumpingState;
 
         public override void Start()
         {
@@ -39,9 +49,10 @@ namespace Test.Game_Logic.Player.AnimationsController
 
             AnimationComponent.BlendTreeBuilder = this;
 
-            _walkingState = new WalkingState(this);
+            WalkingState = new WalkingState(this);
+            JumpingState = new JumpingState(this);
 
-            ChangeState(_walkingState);
+            ChangeState(WalkingState);
         }
 
         public void ChangeState(IAnimationState newState)

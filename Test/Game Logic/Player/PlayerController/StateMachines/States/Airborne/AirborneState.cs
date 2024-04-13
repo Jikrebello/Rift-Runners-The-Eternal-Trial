@@ -9,9 +9,9 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne
 
         public static readonly EventKey<bool> PlayerFallingEventKey =
             new("Player Event", "Falling");
+        public static bool isGrounded;
 
         protected bool isJumping;
-        protected bool isGrounded;
         protected bool isAiming;
         protected int currentAirJumps = 0;
         protected float timeSinceLastJump = 0f;
