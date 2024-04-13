@@ -10,7 +10,7 @@ namespace Test.Game_Logic.Player.PlayerController
 {
     public class PlayerInput : SyncScript
     {
-        public static readonly EventKey<Vector3> MovementEventKey =
+        public static readonly EventKey<Vector3> NewInputDirectionEventKey =
             new("Player Event", "Input Movement");
         public static readonly EventKey<Vector2> CameraRotateEventKey =
             new("Camera Events", "Camera Rotate");
@@ -29,8 +29,8 @@ namespace Test.Game_Logic.Player.PlayerController
         public List<MouseButton> AimButtons { get; set; } = [];
         public List<Keys> JumpKeys { get; } = [];
 
-        private Vector2 _inputMovementDirection = Vector2.Zero;
-        private Vector3 _worldMovementDirection = Vector3.Zero;
+        private Vector2 _inputDirectionFromControls = Vector2.Zero;
+        private Vector3 _worldDirection = Vector3.Zero;
         private Vector2 _cameraRotationInput = Vector2.Zero;
 
         public bool _wasJumpKeyPressedLastFrame = false;
@@ -74,27 +74,23 @@ namespace Test.Game_Logic.Player.PlayerController
 
         private void HandleInputMovementDirectionAndBroadcastWorldDirection()
         {
-            _inputMovementDirection = Vector2.Zero;
+            _inputDirectionFromControls = Vector2.Zero;
 
             if (MoveLeftKeys.Any(Input.IsKeyDown))
-                _inputMovementDirection += -Vector2.UnitX;
+                _inputDirectionFromControls += -Vector2.UnitX;
             if (MoveRightKeys.Any(Input.IsKeyDown))
-                _inputMovementDirection += Vector2.UnitX;
+                _inputDirectionFromControls += Vector2.UnitX;
             if (MoveUpKeys.Any(Input.IsKeyDown))
-                _inputMovementDirection += Vector2.UnitY;
+                _inputDirectionFromControls += Vector2.UnitY;
             if (MoveDownKeys.Any(Input.IsKeyDown))
-                _inputMovementDirection += -Vector2.UnitY;
+                _inputDirectionFromControls += -Vector2.UnitY;
 
-            _worldMovementDirection = ConvertInputMovementDirectionToWorldMovementDirection(
-                _inputMovementDirection
-            );
+            _worldDirection = ConvertInputDirectionToWorldDirection(_inputDirectionFromControls);
 
-            MovementEventKey.Broadcast(_worldMovementDirection);
+            NewInputDirectionEventKey.Broadcast(_worldDirection);
         }
 
-        private Vector3 ConvertInputMovementDirectionToWorldMovementDirection(
-            Vector2 movementInputDirection
-        )
+        private Vector3 ConvertInputDirectionToWorldDirection(Vector2 movementInputDirection)
         {
             if (PlayerCamera == null)
             {

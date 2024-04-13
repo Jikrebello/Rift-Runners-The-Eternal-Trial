@@ -22,7 +22,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
             Context.DebugText.Print("In Idle state", new Int2(350, 450));
 
-            ShouldMoveToRunning(currentMoveDirection.LengthSquared() > float.Epsilon);
+            ShouldMoveToRunning();
 
             HandleAiming();
         }
@@ -37,9 +37,9 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
             LocomotionAnimationStateEventKey.Broadcast(LocomotionAnimationState.Idle);
         }
 
-        private void ShouldMoveToRunning(bool isntMoving)
+        private void ShouldMoveToRunning()
         {
-            if (isntMoving)
+            if (newMoveDirection.LengthSquared() > float.Epsilon)
             {
                 Context.LocomotionStateMachine.TransitionTo(
                     new RunningState(),

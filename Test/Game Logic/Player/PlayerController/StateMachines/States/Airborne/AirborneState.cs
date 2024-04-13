@@ -7,39 +7,34 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne
     {
         public PlayerContext Context { get; set; }
 
-        public static readonly EventKey<bool> PlayerFallingEventKey =
-            new("Player Event", "Falling");
-        public static bool isGrounded;
+        public static readonly EventKey<bool> PlayerGroundedEventKey =
+            new("Player Event", "Grounded");
 
         protected bool isJumping;
         protected bool isAiming;
-        protected int currentAirJumps = 0;
-        protected float timeSinceLastJump = 0f;
+        protected int jumpsRemaining;
 
         private EventReceiver<bool> _playerJumpReceiver;
         private EventReceiver<bool> _aimingReceiver;
 
         private readonly float _jumpHeight = 10f;
+        private readonly double _reactionTimeThreshold;
         private readonly int _maxAirJumps = 1;
-        private readonly float _jumpCooldownDuration = 0.2f;
-
-        private bool _jumpProcessed = false;
-        private bool _wasNotGroundedLastFrame = false;
+        private double _reactionTimeRemaining;
 
         public virtual void Enter(Dictionary<string, object> parameters)
         {
             Context.Character.JumpSpeed = _jumpHeight;
+            _reactionTimeRemaining = _reactionTimeThreshold;
+            jumpsRemaining = _maxAirJumps;
 
             _playerJumpReceiver = new EventReceiver<bool>(PlayerInput.PlayerJumpEventKey);
             _aimingReceiver = new EventReceiver<bool>(PlayerInput.AimingEventKey);
 
             if (parameters != null)
             {
-                if (parameters.TryGetValue("currentAirJumps", out object currentAirJumpsValue))
-                    currentAirJumps = (int)currentAirJumpsValue;
-
-                if (parameters.TryGetValue("timeSinceLastJump", out object timeSinceLastJumpValue))
-                    timeSinceLastJump = (float)timeSinceLastJumpValue;
+                if (parameters.TryGetValue("airJumpsLeft", out object airJumpsLeftValue))
+                    jumpsRemaining = (int)airJumpsLeftValue;
             }
         }
 
@@ -52,83 +47,71 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne
 
         public virtual void Update()
         {
-            isGrounded = Context.Character.IsGrounded;
-            bool currentlyGrounded = Context.Character.IsGrounded;
+            UpdateReactionTime();
+            BroadcastPlayerGroundState();
+            HandleJumpLogic();
+        }
 
-            UpdateCooldownTimer();
+        private void UpdateReactionTime()
+        {
+            if (_reactionTimeThreshold > 0)
+            {
+                _reactionTimeRemaining -= Context.FixedDeltaTime;
+                if (Context.Character.IsGrounded || _reactionTimeRemaining <= 0)
+                {
+                    ResetReactionTime();
+                }
+            }
+        }
 
-            ProcessLanding(currentlyGrounded);
-            HandleJumping(currentlyGrounded);
-            ResetJumpProcessedState();
+        private void ResetReactionTime()
+        {
+            _reactionTimeRemaining = _reactionTimeThreshold;
+            PlayerGroundedEventKey.Broadcast(Context.Character.IsGrounded);
+        }
 
-            _wasNotGroundedLastFrame = !currentlyGrounded;
+        private void BroadcastPlayerGroundState()
+        {
+            if (ShouldBroadcastGroundState())
+            {
+                PlayerGroundedEventKey.Broadcast(Context.Character.IsGrounded);
+            }
+        }
+
+        private bool ShouldBroadcastGroundState()
+        {
+            return _reactionTimeThreshold <= 0
+                    && !Context.Character.IsGrounded
+                    && jumpsRemaining <= 0
+                || !isJumping;
+        }
+
+        private void HandleJumpLogic()
+        {
+            if (isJumping && (Context.Character.IsGrounded || jumpsRemaining > 0))
+            {
+                ProcessJump();
+            }
+        }
+
+        private void ProcessJump()
+        {
+            if (!Context.Character.IsGrounded)
+            {
+                jumpsRemaining--;
+            }
+            else
+            {
+                jumpsRemaining = _maxAirJumps;
+            }
+
+            Context.Character.Jump();
+            _reactionTimeRemaining = 0;
+            PlayerGroundedEventKey.Broadcast(false);
         }
 
         public virtual void Exit() { }
 
         public virtual void BroadcastAnimationState() { }
-
-        private void UpdateCooldownTimer()
-        {
-            if (timeSinceLastJump < _jumpCooldownDuration)
-            {
-                timeSinceLastJump += (float)Context.DeltaTime;
-            }
-        }
-
-        private void ProcessLanding(bool currentlyGrounded)
-        {
-            if (currentlyGrounded && _wasNotGroundedLastFrame)
-            {
-                currentAirJumps = 0;
-                _jumpProcessed = false;
-                timeSinceLastJump = _jumpCooldownDuration;
-            }
-            else if (!currentlyGrounded)
-            {
-                PlayerFallingEventKey.Broadcast(true);
-            }
-        }
-
-        private void HandleJumping(bool currentlyGrounded)
-        {
-            bool jumpButtonPressed = isJumping && !_jumpProcessed;
-            bool canJumpAgain = currentlyGrounded || CanPerformAirJump();
-
-            if (jumpButtonPressed && canJumpAgain && IsJumpCooldownComplete())
-            {
-                PerformJump(currentlyGrounded);
-            }
-        }
-
-        private bool CanPerformAirJump()
-        {
-            return currentAirJumps < _maxAirJumps;
-        }
-
-        private bool IsJumpCooldownComplete()
-        {
-            return timeSinceLastJump >= _jumpCooldownDuration;
-        }
-
-        private void PerformJump(bool currentlyGrounded)
-        {
-            Context.Character.Jump();
-            _jumpProcessed = true;
-            timeSinceLastJump = 0;
-
-            if (!currentlyGrounded)
-            {
-                currentAirJumps++;
-            }
-        }
-
-        private void ResetJumpProcessedState()
-        {
-            if (_jumpProcessed && !isJumping)
-            {
-                _jumpProcessed = false;
-            }
-        }
     }
 }

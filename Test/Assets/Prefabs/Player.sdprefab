@@ -25,15 +25,20 @@ Hierarchy:
                         Animations: {}
                     98fcc5630def8fe8601d9360bc578e72: !Test.Game_Logic.Player.AnimationsController.AnimationController,Test
                         Id: 365d7b62-e74b-4a9e-a8d0-8c7e47df2bd4
+                        WalkingState: null
+                        JumpAnimationState: null
+                        AirborneAnimationState: null
+                        LandingAnimationState: null
                         AnimationComponent: ref!! 9a169c78-3d98-4d11-9b17-4c44912a392c
-                        AnimationIdle: 5f286f7e-7d38-44cf-9bc1-3aad7be4f0fa:Animations/Idle
-                        AnimationWalk: 9d61b261-66aa-40ed-88ed-3cc448f890c0:Animations/Walk
-                        AnimationRun: 448ca260-c8b7-4f63-9bf6-e58a5970a830:Animations/Run
-                        AnimationJump: 8e192377-a8d5-4e4d-8b88-21f921be0683:Animations/Jump_Start
-                        AnimationAirborne: 94d6acea-a230-438d-83b3-b99c99a41a53:Animations/Jump_Loop
-                        AnimationLanding: f5d57cf5-c062-4e82-abcc-3ca315f86363:Animations/Jump_End
+                        AnimationClipIdle: 5f286f7e-7d38-44cf-9bc1-3aad7be4f0fa:Animations/Idle
+                        AnimationClipWalk: 9d61b261-66aa-40ed-88ed-3cc448f890c0:Animations/Walk
+                        AnimationClipRun: 448ca260-c8b7-4f63-9bf6-e58a5970a830:Animations/Run
+                        AnimationClipJump: 8e192377-a8d5-4e4d-8b88-21f921be0683:Animations/Jump_Start
+                        AnimationClipMid_Air: 94d6acea-a230-438d-83b3-b99c99a41a53:Animations/Jump_Loop
+                        AnimationClipLanding: f5d57cf5-c062-4e82-abcc-3ca315f86363:Animations/Jump_End
                         TimeFactor: 1.0
                         CurrentTime: 0.0
+                        IsGrounded: false
         -   Entity:
                 Id: 52655426-ed6a-40df-b017-b68a2e26f418
                 Name: Camera

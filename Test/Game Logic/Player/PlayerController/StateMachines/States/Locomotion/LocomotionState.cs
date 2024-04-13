@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Stride.Core.Mathematics;
 using Stride.Engine.Events;
 using Test.Game_Logic.Player.AnimationsController;
-using Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne;
 
 namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotion
 {
@@ -19,16 +18,13 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
             new("Player Event", "Locomotion Animation State");
 
         protected Vector3 currentMoveDirection = Vector3.Zero;
+        protected Vector3 newMoveDirection = Vector3.Zero;
         protected Vector3 relativeMovementDirection;
         protected bool isAiming;
-        protected bool isFalling;
 
-        private EventReceiver<Vector3> _inputDirectionReceiver;
-        private EventReceiver<bool> _aimingReceiver;
+        private EventReceiver<Vector3> _newInputDirectionReceiver;
         private EventReceiver<Vector3> _cameraForwardReceiver;
-        private EventReceiver<bool> _isFallingReceiver;
-
-        private Vector3 _moveDirection = Vector3.Zero;
+        private EventReceiver<bool> _aimingReceiver;
 
         private const float _VELOCITY_SMOOTH_FACTOR = 0.85f;
         private const float _INPUT_RESPONSE_FACTOR = 0.15f;
@@ -46,30 +42,33 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
                 isAiming = (bool)parameters["aiming"];
             }
 
-            _inputDirectionReceiver = new EventReceiver<Vector3>(PlayerInput.MovementEventKey);
+            _newInputDirectionReceiver = new EventReceiver<Vector3>(
+                PlayerInput.NewInputDirectionEventKey
+            );
             _cameraForwardReceiver = new EventReceiver<Vector3>(PlayerInput.CameraForwardEventKey);
             _aimingReceiver = new EventReceiver<bool>(PlayerInput.AimingEventKey);
-            _isFallingReceiver = new EventReceiver<bool>(AirborneState.PlayerFallingEventKey);
         }
 
         public virtual void HandleInput()
         {
-            if (_inputDirectionReceiver.TryReceive(out Vector3 inputDirection))
+            // Only handle movement when Grounded
+            if (Context.Character.IsGrounded)
             {
-                currentMoveDirection = inputDirection;
+                if (_newInputDirectionReceiver.TryReceive(out Vector3 newInputDirection))
+                {
+                    newMoveDirection = newInputDirection;
+                }
+                else
+                {
+                    newMoveDirection = Vector3.Zero;
+                }
+                _aimingReceiver.TryReceive(out isAiming);
             }
-            else
-            {
-                currentMoveDirection = Vector3.Zero;
-            }
-
-            _aimingReceiver.TryReceive(out isAiming);
-            _isFallingReceiver.TryReceive(out isFalling);
         }
 
         public virtual void Update()
         {
-            CalculateMovementDirection();
+            CalculateCurrentMovementDirection();
 
             if (isAiming)
             {
@@ -80,46 +79,22 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
                 UpdatePlayerRotationBasedOnMovement();
             }
 
-            SetCharacterVelocity();
+            // Only handle movement when Grounded
+            if (Context.Character.IsGrounded)
+            {
+                SetCharacterVelocity();
+            }
         }
 
         public virtual void Exit() { }
 
         public virtual void BroadcastAnimationState() { }
 
-        private void CalculateMovementDirection()
+        private void CalculateCurrentMovementDirection()
         {
-            _moveDirection =
-                _moveDirection * _VELOCITY_SMOOTH_FACTOR
-                + currentMoveDirection * _INPUT_RESPONSE_FACTOR;
-        }
-
-        protected void SetCharacterVelocity(float variableSpeed = 0f)
-        {
-            // Determine the effective move speed.
-            _effectiveSpeed = variableSpeed > 0f ? variableSpeed : _normalMoveSpeed;
-
-            // Set the character's velocity based on the effective move speed.
-            Context.Character.SetVelocity(_moveDirection * _effectiveSpeed);
-
-            // Update the current speed for broadcasting.
-            UpdateAndBroadcastPlayerSpeed(_effectiveSpeed);
-        }
-
-        private void UpdateAndBroadcastPlayerSpeed(float effectiveSpeed)
-        {
-            _isMoving = _moveDirection != Vector3.Zero;
-
-            if (_isMoving)
-            {
-                _currentSpeed = Math.Min(effectiveSpeed / _normalMoveSpeed, 1.0f);
-            }
-            else
-            {
-                _currentSpeed = 0.0f;
-            }
-
-            PlayerSpeedEventKey.Broadcast(_currentSpeed);
+            currentMoveDirection =
+                currentMoveDirection * _VELOCITY_SMOOTH_FACTOR
+                + newMoveDirection * _INPUT_RESPONSE_FACTOR;
         }
 
         private void HandleAimingOrientation()
@@ -137,7 +112,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
                 // Calculate relative movement direction
                 var rotationMatrix = Matrix.RotationQuaternion(newOrientation);
                 relativeMovementDirection = Vector3.TransformNormal(
-                    currentMoveDirection,
+                    newMoveDirection,
                     Matrix.Invert(rotationMatrix)
                 );
 
@@ -148,10 +123,11 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         private void UpdatePlayerRotationBasedOnMovement()
         {
-            if (_moveDirection.LengthSquared() > float.Epsilon)
+            if (currentMoveDirection.LengthSquared() > float.Epsilon)
             {
                 _yawOrientation = MathUtil.RadiansToDegrees(
-                    (float)Math.Atan2(-_moveDirection.Z, _moveDirection.X) + MathUtil.PiOverTwo
+                    (float)Math.Atan2(-currentMoveDirection.Z, currentMoveDirection.X)
+                        + MathUtil.PiOverTwo
                 );
 
                 Context.Model.Transform.Rotation = Quaternion.RotationYawPitchRoll(
@@ -160,6 +136,34 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
                     0
                 );
             }
+        }
+
+        protected void SetCharacterVelocity(float variableSpeed = 0f)
+        {
+            // Determine the effective move speed.
+            _effectiveSpeed = variableSpeed > 0f ? variableSpeed : _normalMoveSpeed;
+
+            // Set the character's velocity based on the effective move speed.
+            Context.Character.SetVelocity(currentMoveDirection * _effectiveSpeed);
+
+            // Update the current speed for broadcasting.
+            UpdateAndBroadcastPlayerSpeed(_effectiveSpeed);
+        }
+
+        private void UpdateAndBroadcastPlayerSpeed(float effectiveSpeed)
+        {
+            _isMoving = currentMoveDirection != Vector3.Zero;
+
+            if (_isMoving)
+            {
+                _currentSpeed = Math.Min(effectiveSpeed / _normalMoveSpeed, 1.0f);
+            }
+            else
+            {
+                _currentSpeed = 0.0f;
+            }
+
+            PlayerSpeedEventKey.Broadcast(_currentSpeed);
         }
     }
 }

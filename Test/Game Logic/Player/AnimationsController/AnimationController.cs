@@ -3,6 +3,7 @@ using Stride.Animations;
 using Stride.Core;
 using Stride.Core.Collections;
 using Stride.Engine;
+using Stride.Engine.Events;
 
 namespace Test.Game_Logic.Player.AnimationsController
 {
@@ -13,33 +14,38 @@ namespace Test.Game_Logic.Player.AnimationsController
 
         // --- Animation Clips ---
         [Display("Idle")]
-        public AnimationClip AnimationIdle { get; set; }
+        public AnimationClip AnimationClipIdle { get; set; }
 
         [Display("Walk")]
-        public AnimationClip AnimationWalk { get; set; }
+        public AnimationClip AnimationClipWalk { get; set; }
 
         [Display("Run")]
-        public AnimationClip AnimationRun { get; set; }
+        public AnimationClip AnimationClipRun { get; set; }
 
         [Display("Jump")]
-        public AnimationClip AnimationJump { get; set; }
+        public AnimationClip AnimationClipJump { get; set; }
 
-        [Display("Airborne")]
-        public AnimationClip AnimationAirborne { get; set; }
+        [Display("Mid-Air")]
+        public AnimationClip AnimationClipMid_Air { get; set; }
 
         [Display("Landing")]
-        public AnimationClip AnimationLanding { get; set; }
+        public AnimationClip AnimationClipLanding { get; set; }
 
         [Display("Time Scale")]
         public double TimeFactor { get; set; } = 1;
 
         public double CurrentTime { get; set; }
+        public bool IsGrounded { get; set; }
+
+        // --- States ---
+        public WalkingAnimationState WalkingState;
+        public JumpAnimationState JumpAnimationState;
+        public AirborneAnimationState AirborneAnimationState;
+        public LandingAnimationState LandingAnimationState;
 
         private IAnimationState _currentState;
 
-        // --- States ---
-        public WalkingState WalkingState;
-        public JumpingState JumpingState;
+        //private EventReceiver<bool> _playerGroundedEventReceiver;
 
         public override void Start()
         {
@@ -49,8 +55,12 @@ namespace Test.Game_Logic.Player.AnimationsController
 
             AnimationComponent.BlendTreeBuilder = this;
 
-            WalkingState = new WalkingState(this);
-            JumpingState = new JumpingState(this);
+            WalkingState = new WalkingAnimationState(this);
+            JumpAnimationState = new JumpAnimationState(this);
+            AirborneAnimationState = new AirborneAnimationState(this);
+            LandingAnimationState = new LandingAnimationState(this);
+
+            //_playerGroundedEventReceiver = new EventReceiver<bool>()
 
             ChangeState(WalkingState);
         }
@@ -79,13 +89,13 @@ namespace Test.Game_Logic.Player.AnimationsController
                 throw new InvalidOperationException("The animation component is not set.");
             }
 
-            if (AnimationIdle == null)
+            if (AnimationClipIdle == null)
                 throw new InvalidOperationException("Idle animation is not set");
 
-            if (AnimationWalk == null)
+            if (AnimationClipWalk == null)
                 throw new InvalidOperationException("Walking animation is not set");
 
-            if (AnimationRun == null)
+            if (AnimationClipRun == null)
                 throw new InvalidOperationException("Running animation is not set");
         }
     }

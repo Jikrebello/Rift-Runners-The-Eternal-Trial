@@ -8,7 +8,7 @@ using Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotion;
 
 namespace Test.Game_Logic.Player.AnimationsController
 {
-    public class WalkingState : IAnimationState
+    public class WalkingAnimationState : IAnimationState
     {
         private readonly AnimationController _controller;
         private AnimationClipEvaluator _evaluatorIdle;
@@ -28,7 +28,7 @@ namespace Test.Game_Logic.Player.AnimationsController
 
         private long _blendedMaxDuration;
 
-        public WalkingState(AnimationController controller)
+        public WalkingAnimationState(AnimationController controller)
         {
             _controller = controller;
 
@@ -44,8 +44,8 @@ namespace Test.Game_Logic.Player.AnimationsController
             _evaluatorForLowerSpeed = _evaluatorIdle;
             _evaluatorForHigherSpeed = _evaluatorWalk;
 
-            _clipForLowerSpeed = _controller.AnimationIdle;
-            _clipForHigherSpeed = _controller.AnimationWalk;
+            _clipForLowerSpeed = _controller.AnimationClipIdle;
+            _clipForHigherSpeed = _controller.AnimationClipWalk;
         }
 
         public void Update(GameTime drawTime)
@@ -61,8 +61,8 @@ namespace Test.Game_Logic.Player.AnimationsController
                 _evaluatorForLowerSpeed = _evaluatorIdle;
                 _evaluatorForHigherSpeed = _evaluatorWalk;
 
-                _clipForLowerSpeed = _controller.AnimationIdle;
-                _clipForHigherSpeed = _controller.AnimationWalk;
+                _clipForLowerSpeed = _controller.AnimationClipIdle;
+                _clipForHigherSpeed = _controller.AnimationClipWalk;
             }
             else
             {
@@ -71,8 +71,8 @@ namespace Test.Game_Logic.Player.AnimationsController
                 _evaluatorForLowerSpeed = _evaluatorWalk;
                 _evaluatorForHigherSpeed = _evaluatorRun;
 
-                _clipForLowerSpeed = _controller.AnimationWalk;
-                _clipForHigherSpeed = _controller.AnimationRun;
+                _clipForLowerSpeed = _controller.AnimationClipWalk;
+                _clipForHigherSpeed = _controller.AnimationClipRun;
             }
 
             // Update currentTime
@@ -125,13 +125,13 @@ namespace Test.Game_Logic.Player.AnimationsController
         private void CreateAnimationClipEvaluators()
         {
             _evaluatorIdle = _controller.AnimationComponent.Blender.CreateEvaluator(
-                _controller.AnimationIdle
+                _controller.AnimationClipIdle
             );
             _evaluatorWalk = _controller.AnimationComponent.Blender.CreateEvaluator(
-                _controller.AnimationWalk
+                _controller.AnimationClipWalk
             );
             _evaluatorRun = _controller.AnimationComponent.Blender.CreateEvaluator(
-                _controller.AnimationRun
+                _controller.AnimationClipRun
             );
         }
     }

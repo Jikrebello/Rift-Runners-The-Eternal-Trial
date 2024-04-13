@@ -15,6 +15,7 @@ namespace Test.Game_Logic.Player.PlayerController
         public CharacterComponent Character { get; set; }
         public Entity Model { get; set; }
         public double DeltaTime { get; set; }
+        public double FixedDeltaTime { get; set; }
 
         // State Machines
         public StateMachine CombatStateMachine { get; set; }

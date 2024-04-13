@@ -5,6 +5,11 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.
 {
     public class FallingState : AirborneState
     {
+        protected Vector3 currentMoveDirection = Vector3.Zero;
+
+        private readonly float _normalFallingSpeed = 2f;
+        private readonly float _jumpForwardFallingSpeed = 4f;
+
         public override void Enter(Dictionary<string, object> parameters)
         {
             base.Enter(parameters);
@@ -20,17 +25,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.
             base.Update(); // Logic here
             Context.DebugText.Print("In Falling state", new Int2(350, 320));
 
-            if (isGrounded)
-            {
-                Context.AirborneStateMachine.TransitionTo(
-                    new GroundedState(),
-                    new Dictionary<string, object>
-                    {
-                        { "currentAirJumps", currentAirJumps },
-                        { "timeSinceLastJump", timeSinceLastJump }
-                    }
-                );
-            }
+            ShouldMoveToGrounded();
         }
 
         public override void Exit()
@@ -41,6 +36,24 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.
         public override void BroadcastAnimationState()
         {
             base.BroadcastAnimationState();
+        }
+
+        private void ShouldMoveToGrounded()
+        {
+            if (Context.Character.IsGrounded)
+            {
+                Context.AirborneStateMachine.TransitionTo(
+                    new GroundedState(),
+                    new Dictionary<string, object> { { "jumpsRemaining", jumpsRemaining }, }
+                );
+            }
+        }
+
+        private void CalculateCurrentMovementDirection()
+        {
+            //currentMoveDirection =
+            //    currentMoveDirection * _VELOCITY_SMOOTH_FACTOR
+            //    + _newMoveDirection * _INPUT_RESPONSE_FACTOR;
         }
     }
 }

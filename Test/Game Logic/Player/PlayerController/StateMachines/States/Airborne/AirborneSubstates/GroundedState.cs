@@ -20,17 +20,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.
             base.Update(); // Logic here
             Context.DebugText.Print("In Grounded state", new Int2(350, 320));
 
-            if (!isGrounded)
-            {
-                Context.AirborneStateMachine.TransitionTo(
-                    new FallingState(),
-                    new Dictionary<string, object>
-                    {
-                        { "currentAirJumps", currentAirJumps },
-                        { "timeSinceLastJump", timeSinceLastJump }
-                    }
-                );
-            }
+            ShouldMoveToFalling();
         }
 
         public override void Exit()
@@ -41,6 +31,17 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.
         public override void BroadcastAnimationState()
         {
             base.BroadcastAnimationState();
+        }
+
+        private void ShouldMoveToFalling()
+        {
+            if (!Context.Character.IsGrounded)
+            {
+                Context.AirborneStateMachine.TransitionTo(
+                    new FallingState(),
+                    new Dictionary<string, object> { { "jumpsRemaining", jumpsRemaining }, }
+                );
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Test.Game_Logic.Player.PlayerController
         {
             ProcessStateMachines();
 
-            _playerContext.DeltaTime = Game.UpdateTime.WarpElapsed.TotalSeconds;
+            ProcessDeltaTimeWrappers();
         }
 
         private void SetupPlayerContext()
@@ -71,6 +71,12 @@ namespace Test.Game_Logic.Player.PlayerController
 
             _locomotionStateMachine.HandleInput();
             _locomotionStateMachine.Update();
+        }
+
+        private void ProcessDeltaTimeWrappers()
+        {
+            _playerContext.DeltaTime = Game.UpdateTime.WarpElapsed.TotalSeconds;
+            _playerContext.FixedDeltaTime = this.GetSimulation().FixedTimeStep;
         }
     }
 }

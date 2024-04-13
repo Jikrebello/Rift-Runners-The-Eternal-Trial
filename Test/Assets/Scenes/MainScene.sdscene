@@ -314,15 +314,20 @@ Hierarchy:
                         Animations: {}
                     98fcc5630def8fe8601d9360bc578e72: !Test.Game_Logic.Player.AnimationsController.AnimationController,Test
                         Id: 92aa25ba-56df-4daa-b194-193422591657
+                        WalkingState: null
+                        JumpAnimationState: null
+                        AirborneAnimationState: null
+                        LandingAnimationState: null
                         AnimationComponent: ref!! 14042ede-02db-4005-885a-14439e65e162
-                        AnimationIdle: 5f286f7e-7d38-44cf-9bc1-3aad7be4f0fa:Animations/Idle
-                        AnimationWalk: 9d61b261-66aa-40ed-88ed-3cc448f890c0:Animations/Walk
-                        AnimationRun: 448ca260-c8b7-4f63-9bf6-e58a5970a830:Animations/Run
-                        AnimationJump: 8e192377-a8d5-4e4d-8b88-21f921be0683:Animations/Jump_Start
-                        AnimationAirborne: 94d6acea-a230-438d-83b3-b99c99a41a53:Animations/Jump_Loop
-                        AnimationLanding: f5d57cf5-c062-4e82-abcc-3ca315f86363:Animations/Jump_End
+                        AnimationClipIdle: 5f286f7e-7d38-44cf-9bc1-3aad7be4f0fa:Animations/Idle
+                        AnimationClipWalk: 9d61b261-66aa-40ed-88ed-3cc448f890c0:Animations/Walk
+                        AnimationClipRun: 448ca260-c8b7-4f63-9bf6-e58a5970a830:Animations/Run
+                        AnimationClipJump: 8e192377-a8d5-4e4d-8b88-21f921be0683:Animations/Jump_Start
+                        AnimationClipMid_Air: 94d6acea-a230-438d-83b3-b99c99a41a53:Animations/Jump_Loop
+                        AnimationClipLanding: f5d57cf5-c062-4e82-abcc-3ca315f86363:Animations/Jump_End
                         TimeFactor: 1.0
                         CurrentTime: 0.0
+                        IsGrounded: false
             Base:
                 BasePartAsset: c5238381-e102-443f-ad96-e07ac5eaa335:Prefabs/Player
                 BasePartId: 37081e29-7882-4240-afec-e5318d192cc9

@@ -10,7 +10,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
         private readonly float _forwardsAimingSpeed = 4.5f;
         private readonly float _horizontalAimingSpeed = 4.8f;
         private readonly float _backwardsAimingSpeed = 3.5f;
-        private readonly float _fallingSpeed = 2f;
 
         public override void Enter(Dictionary<string, object> parameters)
         {
@@ -28,14 +27,9 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
             Context.DebugText.Print("In Running state", new Int2(350, 450));
 
-            ShouldMoveToIdle(currentMoveDirection.LengthSquared() <= float.Epsilon);
+            ShouldMoveToIdle();
 
             ProcessAimingDirection();
-
-            if (isFalling)
-            {
-                SetCharacterVelocity(_fallingSpeed);
-            }
         }
 
         public override void Exit()
@@ -48,9 +42,9 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
             LocomotionAnimationStateEventKey.Broadcast(LocomotionAnimationState.Running);
         }
 
-        private void ShouldMoveToIdle(bool isMoving)
+        private void ShouldMoveToIdle()
         {
-            if (isMoving)
+            if (newMoveDirection.LengthSquared() <= float.Epsilon)
             {
                 Context.LocomotionStateMachine.TransitionTo(
                     new IdleState(),
@@ -61,7 +55,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         private void ProcessAimingDirection()
         {
-            if (isAiming && !isFalling)
+            if (isAiming)
             {
                 if (
                     Math.Abs(relativeMovementDirection.X) > 0.1f
