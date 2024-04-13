@@ -48,12 +48,5 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.
                 );
             }
         }
-
-        private void CalculateCurrentMovementDirection()
-        {
-            //currentMoveDirection =
-            //    currentMoveDirection * _VELOCITY_SMOOTH_FACTOR
-            //    + _newMoveDirection * _INPUT_RESPONSE_FACTOR;
-        }
     }
 }

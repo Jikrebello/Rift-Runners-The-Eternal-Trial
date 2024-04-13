@@ -51,19 +51,15 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         public virtual void HandleInput()
         {
-            // Only handle movement when Grounded
-            if (Context.Character.IsGrounded)
+            if (_newInputDirectionReceiver.TryReceive(out Vector3 newInputDirection))
             {
-                if (_newInputDirectionReceiver.TryReceive(out Vector3 newInputDirection))
-                {
-                    newMoveDirection = newInputDirection;
-                }
-                else
-                {
-                    newMoveDirection = Vector3.Zero;
-                }
-                _aimingReceiver.TryReceive(out isAiming);
+                newMoveDirection = newInputDirection;
             }
+            else
+            {
+                newMoveDirection = Vector3.Zero;
+            }
+            _aimingReceiver.TryReceive(out isAiming);
         }
 
         public virtual void Update()
@@ -79,11 +75,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
                 UpdatePlayerRotationBasedOnMovement();
             }
 
-            // Only handle movement when Grounded
-            if (Context.Character.IsGrounded)
-            {
-                SetCharacterVelocity();
-            }
+            SetCharacterVelocity();
         }
 
         public virtual void Exit() { }
