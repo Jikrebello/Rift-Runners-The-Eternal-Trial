@@ -10,7 +10,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
     {
         public PlayerContext Context { get; set; }
 
-        public static readonly EventKey<float> PlayerSpeedEventKey =
+        public static readonly EventKey<float> PlayerRunSpeedEventKey =
             new("Player Event", "PlayerSpeed");
 
         protected Vector3 currentMoveDirection = Vector3.Zero;
@@ -148,7 +148,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
                 _currentSpeed = 0.0f;
             }
 
-            PlayerSpeedEventKey.Broadcast(_currentSpeed);
+            PlayerRunSpeedEventKey.Broadcast(_currentSpeed);
         }
     }
 }

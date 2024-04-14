@@ -18,7 +18,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne
         private EventReceiver<bool> _aimingReceiver;
 
         private readonly float _jumpHeight = 10f;
-        private readonly double _reactionTimeThreshold;
+        private readonly double _reactionTimeThreshold = 0.3;
         private readonly int _maxAirJumps = 1;
         private double _reactionTimeRemaining;
 
