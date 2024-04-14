@@ -8,9 +8,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Combat
     {
         public PlayerContext Context { get; set; }
 
-        protected EventKey<CombatAnimationState> CombatAnimationStateEventKey =
-            new("Player Event", "Combat Animation State");
-
         protected EventReceiver<bool> aimingReceiver;
         protected bool isAiming;
 

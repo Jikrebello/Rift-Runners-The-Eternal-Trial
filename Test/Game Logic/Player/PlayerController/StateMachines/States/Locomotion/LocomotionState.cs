@@ -12,8 +12,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
 
         public static readonly EventKey<float> PlayerSpeedEventKey =
             new("Player Event", "PlayerSpeed");
-        protected EventKey<LocomotionAnimationState> LocomotionAnimationStateEventKey =
-            new("Player Event", "Locomotion Animation State");
 
         protected Vector3 currentMoveDirection = Vector3.Zero;
         protected Vector3 newMoveDirection = Vector3.Zero;
@@ -77,8 +75,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
         }
 
         public virtual void Exit() { }
-
-        public virtual void BroadcastAnimationState() { }
 
         private void CalculateCurrentMovementDirection()
         {

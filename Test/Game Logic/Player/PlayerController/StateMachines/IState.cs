@@ -7,7 +7,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines
         PlayerContext Context { get; set; }
 
         void Enter(Dictionary<string, object> parameters);
-        void BroadcastAnimationState();
         void HandleInput();
         void Update();
         void Exit();

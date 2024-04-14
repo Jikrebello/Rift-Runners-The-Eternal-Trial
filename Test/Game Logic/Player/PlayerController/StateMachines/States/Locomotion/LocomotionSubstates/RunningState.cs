@@ -37,11 +37,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
             base.Exit();
         }
 
-        public override void BroadcastAnimationState()
-        {
-            LocomotionAnimationStateEventKey.Broadcast(LocomotionAnimationState.Running);
-        }
-
         private void ShouldMoveToIdle()
         {
             if (newMoveDirection.LengthSquared() <= float.Epsilon)

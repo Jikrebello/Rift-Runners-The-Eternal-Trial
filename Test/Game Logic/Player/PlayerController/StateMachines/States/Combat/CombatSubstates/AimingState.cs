@@ -18,11 +18,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Combat.Co
             base.HandleInput();
         }
 
-        public override void BroadcastAnimationState()
-        {
-            CombatAnimationStateEventKey.Broadcast(CombatAnimationState.Aiming);
-        }
-
         public override void Update()
         {
             // Logic here

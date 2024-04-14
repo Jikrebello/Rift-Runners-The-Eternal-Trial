@@ -28,11 +28,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.
             base.Exit();
         }
 
-        public override void BroadcastAnimationState()
-        {
-            base.BroadcastAnimationState();
-        }
-
         private void ShouldMoveToGrounded()
         {
             if (Context.Character.IsGrounded)

@@ -16,11 +16,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Combat.Co
             base.HandleInput();
         }
 
-        public override void BroadcastAnimationState()
-        {
-            CombatAnimationStateEventKey.Broadcast(CombatAnimationState.Melee);
-        }
-
         public override void Update()
         {
             base.Update();
