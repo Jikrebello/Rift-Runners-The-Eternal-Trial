@@ -32,8 +32,7 @@ namespace Test.Game_Logic.Player.PlayerController
         private Vector2 _inputDirectionFromControls = Vector2.Zero;
         private Vector3 _worldDirection = Vector3.Zero;
         private Vector2 _cameraRotationInput = Vector2.Zero;
-
-        public bool _wasJumpKeyPressedLastFrame = false;
+        private bool _wasJumpKeyPressedLastFrame = false;
 
         public override void Start()
         {

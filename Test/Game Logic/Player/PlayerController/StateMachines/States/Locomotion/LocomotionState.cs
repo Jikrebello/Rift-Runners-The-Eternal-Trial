@@ -10,8 +10,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
     {
         public PlayerContext Context { get; set; }
 
-        public static readonly EventKey<Vector3> RelativeMovementDirectionEventKey =
-            new("Player Event", "RelativeMovementDirection");
         public static readonly EventKey<float> PlayerSpeedEventKey =
             new("Player Event", "PlayerSpeed");
         protected EventKey<LocomotionAnimationState> LocomotionAnimationStateEventKey =
@@ -109,7 +107,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Locomotio
                 );
 
                 relativeMovementDirection.Normalize();
-                RelativeMovementDirectionEventKey.Broadcast(relativeMovementDirection);
             }
         }
 

@@ -7,9 +7,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne
     {
         public PlayerContext Context { get; set; }
 
-        public static readonly EventKey<bool> PlayerGroundedEventKey =
-            new("Player Event", "Grounded");
-
         protected bool isJumping;
         protected bool isAiming;
         protected int jumpsRemaining;
@@ -18,7 +15,7 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne
         private EventReceiver<bool> _aimingReceiver;
 
         private readonly float _jumpHeight = 10f;
-        private readonly double _reactionTimeThreshold;
+        private readonly double _reactionTimeThreshold = 0;
         private readonly int _maxAirJumps = 1;
         private double _reactionTimeRemaining;
 
@@ -48,7 +45,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne
         public virtual void Update()
         {
             UpdateReactionTime();
-            BroadcastPlayerGroundState();
             HandleJumpLogic();
         }
 
@@ -67,23 +63,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne
         private void ResetReactionTime()
         {
             _reactionTimeRemaining = _reactionTimeThreshold;
-            PlayerGroundedEventKey.Broadcast(Context.Character.IsGrounded);
-        }
-
-        private void BroadcastPlayerGroundState()
-        {
-            if (ShouldBroadcastGroundState())
-            {
-                PlayerGroundedEventKey.Broadcast(Context.Character.IsGrounded);
-            }
-        }
-
-        private bool ShouldBroadcastGroundState()
-        {
-            return _reactionTimeThreshold <= 0
-                    && !Context.Character.IsGrounded
-                    && jumpsRemaining <= 0
-                || !isJumping;
         }
 
         private void HandleJumpLogic()
@@ -107,7 +86,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne
 
             Context.Character.Jump();
             _reactionTimeRemaining = 0;
-            PlayerGroundedEventKey.Broadcast(false);
         }
 
         public virtual void Exit() { }

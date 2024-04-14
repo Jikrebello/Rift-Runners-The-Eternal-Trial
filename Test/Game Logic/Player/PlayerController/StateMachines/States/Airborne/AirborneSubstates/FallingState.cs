@@ -5,11 +5,6 @@ namespace Test.Game_Logic.Player.PlayerController.StateMachines.States.Airborne.
 {
     public class FallingState : AirborneState
     {
-        protected Vector3 currentMoveDirection = Vector3.Zero;
-
-        private readonly float _normalFallingSpeed = 2f;
-        private readonly float _jumpForwardFallingSpeed = 4f;
-
         public override void Enter(Dictionary<string, object> parameters)
         {
             base.Enter(parameters);
