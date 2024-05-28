@@ -14,10 +14,10 @@ namespace Test.Game_Logic.Player.PlayerController
             new("Player Event", "Input Movement");
         public static readonly EventKey<Vector2> CameraRotateEventKey =
             new("Camera Events", "Camera Rotate");
-        public static readonly EventKey<bool> AimingEventKey = new("Player Event", "Aiming");
         public static readonly EventKey<Vector3> CameraForwardEventKey =
             new("Camera Events", "Camera Forward");
         public static readonly EventKey<bool> PlayerJumpEventKey = new("Player Event", "Jumping");
+        public static readonly EventKey<bool> AimingEventKey = new("Player Event", "Aiming");
 
         public CameraComponent PlayerCamera { get; set; }
         public float MouseSensitivity = 1f;
